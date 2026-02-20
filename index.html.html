@@ -9,6 +9,12 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* Nuclear overflow fix */
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
   :root {
     --bg: #080808;
     --surface: #0f0f0f;
@@ -25,7 +31,10 @@
     --sidebar-w: 260px;
   }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -35,6 +44,8 @@
     min-height: 100vh;
     font-size: 15px;
     line-height: 1.7;
+    overflow-x: hidden;
+    width: 100%;
   }
 
   /* ── SIDEBAR ── */
@@ -90,10 +101,17 @@
 
   /* ── MOBILE ── */
   @media (max-width: 768px) {
-    /* Sidebar */
+    /* Contain everything */
+    * { max-width: 100% !important; }
+
+    /* But allow sidebar to be wider than screen (it slides in) */
+    .sidebar { max-width: 280px !important; }
+    .overlay { max-width: 100vw !important; }
+
+    /* Sidebar slide */
     .sidebar {
       transform: translateX(-100%);
-      width: 280px;
+      width: 280px !important;
     }
     .sidebar.open {
       transform: translateX(0);
@@ -101,58 +119,71 @@
     }
 
     /* Main layout */
-    .main { margin-left: 0; }
-    .hamburger { display: flex; }
+    .main { margin-left: 0 !important; width: 100% !important; }
+    .hamburger { display: flex !important; }
 
     /* Topbar */
     .topbar {
-      padding: 0 16px;
+      padding: 0 16px !important;
       gap: 10px;
     }
-    .breadcrumb { font-size: 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .breadcrumb {
+      font-size: 12px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
     .breadcrumb span:first-child { display: none; }
     .breadcrumb span:nth-child(2) { display: none; }
 
     /* Content */
     .content {
-      padding: 28px 20px 80px;
-      max-width: 100%;
+      padding: 28px 16px 80px !important;
+      width: 100% !important;
+      overflow-x: hidden !important;
     }
 
     /* Typography */
-    h1 { font-size: 22px; margin-bottom: 8px; }
-    h2 { font-size: 17px; margin-top: 32px; }
-    .page-desc { font-size: 14px; margin-bottom: 28px; }
+    h1 { font-size: 22px !important; margin-bottom: 8px; }
+    h2 { font-size: 17px !important; margin-top: 32px; }
+    .page-desc { font-size: 14px !important; margin-bottom: 28px; }
 
-    /* Screenshots — full width, smaller radius */
+    /* Screenshots */
     .screenshot {
-      border-radius: 6px;
-      margin: 16px 0 24px;
+      border-radius: 6px !important;
+      margin: 16px 0 24px !important;
+      width: 100% !important;
+      height: auto !important;
     }
 
-    /* Tables — horizontal scroll */
+    /* Tables: scroll inside, no overflow outside */
     table {
-      display: block;
-      overflow-x: auto;
+      display: block !important;
+      overflow-x: auto !important;
       -webkit-overflow-scrolling: touch;
       white-space: nowrap;
-      font-size: 12.5px;
+      max-width: 100% !important;
+      width: 100% !important;
     }
     th, td { padding: 8px 12px; }
 
-    /* Metrics grid — 1 col on very small, 2 col otherwise */
+    /* Metrics */
     .metrics {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr) !important;
       gap: 10px;
       margin: 16px 0 24px;
     }
-    .metric-value { font-size: 18px; }
+    .metric-value { font-size: 18px !important; }
 
     /* Steps */
     .step { gap: 12px; }
 
     /* Callouts */
     .callout { font-size: 13px; padding: 12px 14px; }
+
+    /* Logo */
+    .logo-full { display: none !important; }
+    .logo-icon-img { display: block !important; }
   }
 
   @media (max-width: 400px) {
@@ -165,11 +196,6 @@
   .sidebar::-webkit-scrollbar { width: 4px; }
   .sidebar::-webkit-scrollbar-track { background: transparent; }
   .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
-
-  @media (max-width: 768px) {
-    .logo-full { display: none !important; }
-    .logo-icon-img { display: block !important; }
-  }
 
   .logo {
     padding: 16px 20px;
@@ -246,6 +272,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-width: 0;
+    max-width: 100%;
   }
 
   /* ── TOPBAR ── */
@@ -299,6 +327,8 @@
   .content {
     padding: 56px 64px 80px;
     max-width: 860px;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   .page { display: none; }
@@ -347,6 +377,8 @@
   /* ── SCREENSHOT ── */
   .screenshot {
     width: 100%;
+    max-width: 100%;
+    height: auto;
     border-radius: 10px;
     border: 1px solid var(--border2);
     margin: 24px 0 32px;
@@ -354,9 +386,12 @@
     display: block;
   }
 
+  img { max-width: 100%; height: auto; }
+
   /* ── TABLE ── */
   table {
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
     margin: 16px 0 28px;
     font-size: 13.5px;
