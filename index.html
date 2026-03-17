@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlashPass Studio — Guía para Productores</title>
+<style>
+  :root {
+    --fp-purple: #7C3AED;
+    --fp-purple-dark: #5B21B6;
+    --fp-purple-light: #A78BFA;
+    --fp-pink: #EC4899;
+    --fp-orange: #F97316;
+    --fp-dark: #0F0A1A;
+    --fp-dark-2: #1A1030;
+    --fp-dark-3: #231840;
+    --fp-card: #1E1535;
+    --fp-card-hover: #2A1D4A;
+    --fp-text: #F3F0FF;
+    --fp-text-muted: #9B8EC4;
+    --fp-green: #10B981;
+    --fp-yellow: #F59E0B;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--fp-dark);
+    color: var(--fp-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(15, 10, 26, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo img {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .nav-links a {
+    color: var(--fp-text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--fp-text);
+    background: rgba(124, 58, 237, 0.25);
+  }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--fp-purple), var(--fp-pink));
+    color: white !important;
+    padding: 8px 18px !important;
+    border-radius: 20px !important;
+    font-weight: 600 !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(236,72,153,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(124, 58, 237, 0.2);
+    border: 1px solid rgba(124, 58, 237, 0.4);
+    color: var(--fp-purple-light);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+    letter-spacing: 0.3px;
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 80px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    max-width: 900px;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--fp-purple-light), var(--fp-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: clamp(17px, 2.5vw, 22px);
+    color: var(--fp-text-muted);
+    max-width: 620px;
+    margin-bottom: 48px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--fp-purple), var(--fp-pink));
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(124, 58, 237, 0.6);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--fp-text);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-stat { text-align: center; }
+  .hero-stat .num {
+    font-size: 36px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--fp-purple-light), var(--fp-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+    display: block;
+  }
+  .hero-stat .label {
+    font-size: 13px;
+    color: var(--fp-text-muted);
+    font-weight: 500;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 80px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--fp-purple-light);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 17px;
+    color: var(--fp-text-muted);
+    max-width: 580px;
+    margin-bottom: 48px;
+  }
+
+  /* ── FEATURE TABS ── */
+  .tabs-wrapper {
+    background: var(--fp-dark-2);
+    border-radius: 24px;
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    overflow: hidden;
+  }
+
+  .tab-nav {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(124, 58, 237, 0.15);
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 24px;
+    background: none;
+    border: none;
+    color: var(--fp-text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--fp-text); }
+  .tab-btn.active {
+    color: var(--fp-purple-light);
+    border-bottom-color: var(--fp-purple);
+    background: rgba(124, 58, 237, 0.1);
+  }
+
+  .tab-icon { font-size: 18px; }
+
+  .tab-content { display: none; padding: 40px; }
+  .tab-content.active { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; }
+
+  .tab-text { flex: 1; min-width: 280px; }
+  .tab-text h3 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+  }
+  .tab-text p {
+    color: var(--fp-text-muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--fp-text);
+  }
+  .feature-list li::before {
+    content: '✓';
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    background: rgba(124, 58, 237, 0.2);
+    border: 1px solid var(--fp-purple);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--fp-purple-light);
+    margin-top: 2px;
+  }
+
+  .tab-visual { flex: 1; min-width: 260px; }
+
+  /* ── STUDIO SCREENSHOT FRAME ── */
+  .studio-frame {
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 12px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  }
+  .studio-topbar {
+    background: #0d1117;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .studio-topbar .s-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .studio-topbar .s-title {
+    font-size: 11px; color: rgba(255,255,255,0.4);
+    font-weight: 600; margin-left: 4px;
+  }
+  .studio-inner {
+    display: flex;
+    min-height: 220px;
+  }
+  .studio-sidebar {
+    width: 40px;
+    background: #161b22;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    gap: 14px;
+  }
+  .s-nav-icon {
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+  }
+  .s-nav-icon.active {
+    background: rgba(124,58,237,0.3);
+    color: #a78bfa;
+  }
+  .studio-content {
+    flex: 1;
+    padding: 12px;
+    background: #0d1117;
+  }
+  .s-page-title {
+    font-size: 13px; font-weight: 700; color: #f0f0f0;
+    margin-bottom: 10px;
+  }
+  .s-cards-row {
+    display: flex; gap: 8px; margin-bottom: 8px;
+  }
+  .s-stat-card {
+    flex: 1;
+    background: #161b22;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 8px 10px;
+    border-left: 3px solid;
+  }
+  .s-stat-card .s-label { font-size: 9px; color: rgba(255,255,255,0.4); margin-bottom: 3px; }
+  .s-stat-card .s-val { font-size: 15px; font-weight: 800; color: #f0f0f0; }
+  .s-stat-card .s-sub { font-size: 9px; color: rgba(255,255,255,0.35); }
+  .s-event-card {
+    background: #161b22;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .s-event-img {
+    height: 50px;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: white;
+    letter-spacing: -1px;
+  }
+  .s-event-body { padding: 6px 8px; }
+  .s-event-name { font-size: 10px; font-weight: 700; color: #f0f0f0; }
+  .s-event-meta { font-size: 9px; color: rgba(255,255,255,0.4); }
+  .s-event-row { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+  .s-badge { font-size: 8px; font-weight: 700; padding: 2px 5px; border-radius: 4px; }
+  .s-badge-green { background: rgba(16,185,129,0.2); color: #10b981; }
+  .s-badge-blue { background: rgba(59,130,246,0.2); color: #60a5fa; }
+  .s-badge-gray { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+  .s-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .s-row:last-child { border-bottom: none; }
+  .s-row .lbl { font-size: 9px; color: rgba(255,255,255,0.4); }
+  .s-row .val { font-size: 10px; font-weight: 600; color: #f0f0f0; }
+  .s-row .val.green { color: #10b981; }
+  .s-row .val.purple { color: #a78bfa; }
+  .s-chart-bar { display: flex; align-items: flex-end; gap: 3px; height: 40px; margin-top: 8px; }
+  .s-bar { flex: 1; background: rgba(124,58,237,0.35); border-radius: 3px 3px 0 0; min-height: 4px; }
+  .s-bar.hi { background: linear-gradient(180deg, #a78bfa, #7c3aed); }
+
+  /* ── MOCK UI CARDS (legacy, keep for fallback) ── */
+  .mock-card {
+    background: var(--fp-dark);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: var(--radius);
+    padding: 20px;
+    font-size: 13px;
+  }
+
+  .mock-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .mock-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--fp-text);
+  }
+  .mock-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .badge-green { background: rgba(16,185,129,0.2); color: var(--fp-green); }
+  .badge-yellow { background: rgba(245,158,11,0.2); color: var(--fp-yellow); }
+  .badge-purple { background: rgba(124,58,237,0.2); color: var(--fp-purple-light); }
+
+  .mock-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .mock-row:last-child { border-bottom: none; }
+  .mock-row .label { color: var(--fp-text-muted); font-size: 12px; }
+  .mock-row .value { font-weight: 600; font-size: 13px; }
+  .mock-row .value.green { color: var(--fp-green); }
+  .mock-row .value.purple { color: var(--fp-purple-light); }
+
+  .mock-metric {
+    background: rgba(124, 58, 237, 0.1);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .mock-metric .m-val {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--fp-purple-light), var(--fp-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .mock-metric .m-label { font-size: 12px; color: var(--fp-text-muted); }
+  .mock-metric .m-change { font-size: 12px; color: var(--fp-green); font-weight: 600; }
+
+  .progress-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--fp-purple), var(--fp-pink));
+    transition: width 1s ease;
+  }
+
+  /* ── STEPS ── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .step-card {
+    background: var(--fp-card);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    position: relative;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .step-card:hover {
+    border-color: var(--fp-purple);
+    background: var(--fp-card-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(124, 58, 237, 0.2);
+  }
+
+  .step-num {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--fp-purple), var(--fp-pink));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  .step-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+
+  .step-card p {
+    font-size: 13px;
+    color: var(--fp-text-muted);
+    line-height: 1.6;
+  }
+
+  .step-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--fp-purple-light);
+    background: rgba(124, 58, 237, 0.12);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  /* ── ROLES TABLE ── */
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .role-card {
+    background: var(--fp-card);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    border-radius: var(--radius);
+    padding: 22px;
+    transition: all 0.2s;
+  }
+  .role-card:hover {
+    border-color: rgba(124, 58, 237, 0.4);
+    background: var(--fp-card-hover);
+  }
+
+  .role-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .role-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .role-card p {
+    font-size: 13px;
+    color: var(--fp-text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── PRICING ── */
+  .pricing-box {
+    background: var(--fp-dark-2);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 24px;
+    padding: 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 40px;
+  }
+  .pricing-box::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+  }
+
+  .pricing-box h3 {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  .pricing-box .pricing-sub {
+    color: var(--fp-text-muted);
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  .pricing-perks {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .perk {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .perk-icon {
+    width: 32px; height: 32px;
+    background: rgba(124, 58, 237, 0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  /* ── ACCORDION ── */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 40px;
+  }
+
+  .faq-item {
+    background: var(--fp-card);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    background: none;
+    border: none;
+    color: var(--fp-text);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .faq-question:hover { background: rgba(124, 58, 237, 0.08); }
+
+  .faq-arrow {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    background: rgba(124, 58, 237, 0.2);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: transform 0.3s;
+  }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+  .faq-answer {
+    display: none;
+    padding: 0 22px 20px;
+    color: var(--fp-text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 16px;
+  }
+  .faq-item.open .faq-answer { display: block; }
+
+  /* ── CTA FINAL ── */
+  .cta-section {
+    padding: 100px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(124,58,237,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+  .cta-section p {
+    font-size: 18px;
+    color: var(--fp-text-muted);
+    margin-bottom: 40px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.3), transparent);
+    margin: 0;
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: rgba(124, 58, 237, 0.1);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--fp-purple-light);
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .highlight-box .hi { flex-shrink: 0; font-size: 16px; }
+
+  /* ── TICKET PREVIEW ── */
+  .ticket-list { display: flex; flex-direction: column; gap: 10px; }
+  .ticket-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .ticket-item .tname { font-weight: 600; font-size: 13px; }
+  .ticket-item .tprice { color: var(--fp-purple-light); font-weight: 700; font-size: 14px; }
+  .ticket-item .tsold { font-size: 11px; color: var(--fp-text-muted); }
+  .ticket-status {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .ts-active { background: rgba(16,185,129,0.2); color: var(--fp-green); }
+  .ts-sold { background: rgba(239,68,68,0.2); color: #F87171; }
+
+  /* ── CRM ── */
+  .crm-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .crm-row:last-child { border-bottom: none; }
+  .crm-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--fp-purple), var(--fp-pink));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .crm-name { font-size: 13px; font-weight: 600; flex: 1; }
+  .crm-amount { font-size: 13px; font-weight: 700; color: var(--fp-green); }
+  .crm-events { font-size: 11px; color: var(--fp-text-muted); }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--fp-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--fp-purple-dark); border-radius: 3px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .tab-content.active { flex-direction: column; }
+    .hero-stats { gap: 24px; }
+    .pricing-box { padding: 32px 24px; }
+    .nav-links { display: none; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  /* ── GLOW PULSE ── */
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(124, 58, 237, 0.6); }
+  }
+
+  .glow { animation: glow 3s ease-in-out infinite; }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    overflow: hidden;
+    background: rgba(124, 58, 237, 0.08);
+    border-top: 1px solid rgba(124, 58, 237, 0.15);
+    border-bottom: 1px solid rgba(124, 58, 237, 0.15);
+    padding: 12px 0;
+    margin: 0;
+  }
+  .ticker {
+    display: flex;
+    gap: 60px;
+    white-space: nowrap;
+    animation: ticker-scroll 30s linear infinite;
+  }
+  .ticker span {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fp-text-muted);
+  }
+  .ticker span strong { color: var(--fp-purple-light); }
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* MODULES OVERVIEW */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .module-card {
+    background: var(--fp-card);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .module-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--fp-purple), var(--fp-pink));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .module-card:hover {
+    border-color: rgba(124, 58, 237, 0.4);
+    background: var(--fp-card-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(124, 58, 237, 0.15);
+  }
+  .module-card:hover::before { transform: scaleX(1); }
+
+  .module-icon-wrap {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .module-card h3 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+
+  .module-card p {
+    font-size: 13px;
+    color: var(--fp-text-muted);
+    line-height: 1.6;
+  }
+
+  /* VENUE TABS */
+  .venue-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 24px 0; }
+  .venue-tab {
+    padding: 6px 14px;
+    background: rgba(124, 58, 237, 0.1);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--fp-text-muted);
+    transition: all 0.2s;
+  }
+  .venue-tab:hover, .venue-tab.vt-active {
+    background: rgba(124, 58, 237, 0.25);
+    color: var(--fp-purple-light);
+    border-color: var(--fp-purple);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><img src="assets/logo.png" alt="FlashPass"></div>
+  <ul class="nav-links">
+    <li><a href="#modulos">Módulos</a></li>
+    <li><a href="#primeros-pasos">Primeros pasos</a></li>
+    <li><a href="#funcionalidades">Funcionalidades</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#crm">CRM</a></li>
+    <li><a href="#cobros">Cobros</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="https://studio.flashpass.com.ar" target="_blank" class="nav-cta">Ir al Studio →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">✦ Plataforma oficial para productores de eventos</div>
+  <h1>
+    Todo lo que necesitás<br>
+    para <span>vender más entradas</span><br>
+    desde un solo lugar
+  </h1>
+  <p class="hero-sub">
+    FlashPass Studio es la plataforma completa para productores de Argentina y Uruguay. Creá, vendé, gestioná y analizá tus eventos en minutos.
+  </p>
+  <div class="hero-actions">
+    <a href="https://studio.flashpass.com.ar" target="_blank" class="btn-primary glow">
+      🚀 Empezar gratis
+    </a>
+    <a href="#primeros-pasos" class="btn-secondary">
+      Ver cómo funciona →
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="num">10 min</span>
+      <span class="label">para publicar tu primer evento</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">0%</span>
+      <span class="label">comisión en cortesías</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">100%</span>
+      <span class="label">control sobre tus datos</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">ARG + URU</span>
+      <span class="label">cobertura regional</span>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>⚡ <strong>Ventas en tiempo real</strong></span>
+    <span>🎟️ <strong>Tickets + Combos + Códigos de descuento</strong></span>
+    <span>📊 <strong>Analytics avanzado</strong></span>
+    <span>👥 <strong>CRM de clientes</strong></span>
+    <span>🔑 <strong>Roles y permisos para tu equipo</strong></span>
+    <span>🍹 <strong>FlashPOS para consumiciones</strong></span>
+    <span>💳 <strong>FlashPay billetera digital</strong></span>
+    <span>📱 <strong>App para compradores</strong></span>
+    <span>⚡ <strong>Ventas en tiempo real</strong></span>
+    <span>🎟️ <strong>Tickets + Combos + Códigos de descuento</strong></span>
+    <span>📊 <strong>Analytics avanzado</strong></span>
+    <span>👥 <strong>CRM de clientes</strong></span>
+    <span>🔑 <strong>Roles y permisos para tu equipo</strong></span>
+    <span>🍹 <strong>FlashPOS para consumiciones</strong></span>
+    <span>💳 <strong>FlashPay billetera digital</strong></span>
+    <span>📱 <strong>App para compradores</strong></span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- MÓDULOS OVERVIEW -->
+<section id="modulos">
+  <div class="section-label">✦ Todo incluido</div>
+  <h2 class="section-title">Una plataforma.<br>Seis módulos poderosos.</h2>
+  <p class="section-sub">Cada módulo está diseñado para un aspecto crítico de tu evento. Usá los que necesitás, cuando los necesitás.</p>
+
+  <div class="modules-grid">
+    <div class="module-card" onclick="scrollToTab('eventos')">
+      <div class="module-icon-wrap" style="background: rgba(124,58,237,0.2);">🎉</div>
+      <h3>Eventos</h3>
+      <p>Creá eventos completos en minutos: información, ubicación, tickets por tanda y publicación con un clic. Control total del ciclo de vida de cada evento.</p>
+    </div>
+    <div class="module-card" onclick="scrollToTab('analytics')">
+      <div class="module-icon-wrap" style="background: rgba(236,72,153,0.2);">📊</div>
+      <h3>Analytics</h3>
+      <p>Métricas en tiempo real de facturación, tickets vendidos, visitas y distribución. Filtrá por período y evento para comparar rendimiento.</p>
+    </div>
+    <div class="module-card" onclick="scrollToTab('colaboradores')">
+      <div class="module-icon-wrap" style="background: rgba(249,115,22,0.2);">👥</div>
+      <h3>Colaboradores</h3>
+      <p>RRPP, vendedores, supervisores y validadores con roles diferenciados. Organizalos en equipos reutilizables para cada evento.</p>
+    </div>
+    <div class="module-card" onclick="scrollToTab('crm-tab')">
+      <div class="module-icon-wrap" style="background: rgba(16,185,129,0.2);">💎</div>
+      <h3>CRM</h3>
+      <p>Ranking de tus mejores clientes con historial completo de compras. Identificá tu audiencia VIP y construí relaciones que duran más que un evento.</p>
+    </div>
+    <div class="module-card" onclick="scrollToTab('pos')">
+      <div class="module-icon-wrap" style="background: rgba(245,158,11,0.2);">🍹</div>
+      <h3>FlashPOS</h3>
+      <p>Sistema de punto de venta para consumiciones y productos dentro del evento. Mesas, cajas, menús, inventario y estaciones de preparación incluidos.</p>
+    </div>
+    <div class="module-card" onclick="scrollToTab('pay')">
+      <div class="module-icon-wrap" style="background: rgba(99,102,241,0.2);">⚡</div>
+      <h3>FlashPay</h3>
+      <p>Billetera digital con créditos para eliminar filas en la barra. Tus clientes cargan créditos y consumen sin efectivo. Más rápido, más ventas.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRIMEROS PASOS -->
+<section id="primeros-pasos">
+  <div class="section-label">✦ Onboarding</div>
+  <h2 class="section-title">De cero a vendiendo<br>en menos de 10 minutos</h2>
+  <p class="section-sub">El proceso más rápido del mercado. Sin trámites, sin esperas. Publicás tu evento y empezás a vender el mismo día.</p>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">0</div>
+      <h4>Elegí tu rol</h4>
+      <p>Al ingresar por primera vez, elegís <em>Creá tu marca</em> para registrarte como productor.</p>
+      <span class="step-time">⏱ 1 min</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h4>Creá tu productora</h4>
+      <p>Nombre de fantasía, logo, descripción y redes sociales. Solo se configura una vez.</p>
+      <span class="step-time">⏱ 2 min</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h4>Datos fiscales</h4>
+      <p>Razón social, CUIT y email administrativo. El CUIT se valida al registrarse — revisalo bien.</p>
+      <span class="step-time">⏱ 2 min</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h4>Creá tu primer evento</h4>
+      <p>Nombre, fecha, lugar, imagen de portada y banner. Configurás los tickets y publicás.</p>
+      <span class="step-time">⏱ 5 min</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <h4>Publicá y vendé</h4>
+      <p>El evento entra En revisión (menos de 24hs) y en cuanto se aprueba, aparece en la app y podés compartir el link.</p>
+      <span class="step-time">⏱ &lt;24hs revisión</span>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <span class="hi">💡</span>
+    <span>Podés agregar tu <strong>CBU</strong> para recibir pagos automáticos semanales sin comisiones. Este paso es opcional y lo completás cuando quieras desde Configuración.</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FUNCIONALIDADES DETALLADAS -->
+<section id="funcionalidades">
+  <div class="section-label">✦ Deep dive</div>
+  <h2 class="section-title">Explorá cada funcionalidad</h2>
+  <p class="section-sub">Hacé clic en cada módulo para ver en detalle qué podés hacer.</p>
+
+  <div class="tabs-wrapper" id="feature-tabs">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="openTab('eventos')" data-tab="eventos">
+        <span class="tab-icon">🎉</span> Eventos
+      </button>
+      <button class="tab-btn" onclick="openTab('tickets')" data-tab="tickets">
+        <span class="tab-icon">🎟️</span> Tickets
+      </button>
+      <button class="tab-btn" onclick="openTab('analytics')" data-tab="analytics">
+        <span class="tab-icon">📊</span> Analytics
+      </button>
+      <button class="tab-btn" onclick="openTab('ventas')" data-tab="ventas">
+        <span class="tab-icon">💰</span> Reportes
+      </button>
+      <button class="tab-btn" onclick="openTab('colaboradores')" data-tab="colaboradores">
+        <span class="tab-icon">👥</span> Colaboradores
+      </button>
+      <button class="tab-btn" onclick="openTab('crm-tab')" data-tab="crm-tab">
+        <span class="tab-icon">💎</span> CRM
+      </button>
+      <button class="tab-btn" onclick="openTab('venues')" data-tab="venues">
+        <span class="tab-icon">🏟️</span> Establecimientos
+      </button>
+      <button class="tab-btn" onclick="openTab('pos')" data-tab="pos">
+        <span class="tab-icon">🍹</span> FlashPOS
+      </button>
+      <button class="tab-btn" onclick="openTab('pay')" data-tab="pay">
+        <span class="tab-icon">⚡</span> FlashPay
+      </button>
+    </div>
+
+    <!-- TAB: EVENTOS -->
+    <div class="tab-content active" id="tab-eventos">
+      <div class="tab-text">
+        <h3>Gestión de Eventos</h3>
+        <p>Desde acá creás, configurás y publicás todos tus eventos. El flujo está diseñado para ser rápido y sin errores: 4 pasos simples y ya estás vendiendo.</p>
+        <ul class="feature-list">
+          <li>Nombre, descripción con editor de texto enriquecido, fecha y hora</li>
+          <li>Imagen principal (720×1280px) y banner (390×150px)</li>
+          <li>Selector de establecimiento vinculado</li>
+          <li>Hasta 5 píxeles de Meta para tracking de conversiones</li>
+          <li>Visibilidad Pública o Privada (con link directo)</li>
+          <li>Activación de FlashTrade para reventa controlada</li>
+          <li>Estado en tiempo real: Borrador → En revisión → Activo → Terminado</li>
+        </ul>
+        <div class="highlight-box">
+          <span class="hi">📌</span>
+          <span>El estado <strong>En revisión</strong> dura menos de 24hs. Podés seguir configurando tickets y colaboradores mientras tanto.</span>
+        </div>
+      </div>
+      <div class="tab-visual">
+        <div class="studio-frame">
+          <div class="studio-topbar">
+            <div class="s-dot" style="background:#ff5f57"></div>
+            <div class="s-dot" style="background:#ffbd2e"></div>
+            <div class="s-dot" style="background:#28c840"></div>
+            <span class="s-title">studio.flashpass.com.ar/events</span>
+          </div>
+          <div class="studio-inner">
+            <div class="studio-sidebar">
+              <div class="s-nav-icon">🏠</div>
+              <div class="s-nav-icon active">📅</div>
+              <div class="s-nav-icon">📊</div>
+              <div class="s-nav-icon">👥</div>
+              <div class="s-nav-icon">💎</div>
+              <div class="s-nav-icon">🏟️</div>
+            </div>
+            <div class="studio-content">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                <div class="s-page-title">📅 Eventos · 5 eventos</div>
+                <div style="background:#7c3aed;color:white;font-size:9px;font-weight:700;padding:4px 8px;border-radius:5px;">+ Crear Evento</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                <div class="s-event-card">
+                  <div class="s-event-img" style="background:linear-gradient(135deg,#b91c1c,#7c3aed);font-size:11px;letter-spacing:0;">WASABI — NEUQUÉN</div>
+                  <div class="s-event-body">
+                    <div class="s-event-name">EVENTO MENDOZA TEST</div>
+                    <div class="s-event-meta">📅 27 Ago 2025 · 19:20</div>
+                    <div class="s-event-row">
+                      <span class="s-badge s-badge-green">Activo</span>
+                      <span style="font-size:9px;color:#10b981;font-weight:700;">21/1400</span>
+                    </div>
+                    <div style="margin-top:4px;font-size:9px;color:#10b981;font-weight:700;">💰 $192.000</div>
+                  </div>
+                </div>
+                <div class="s-event-card">
+                  <div class="s-event-img" style="background:linear-gradient(135deg,#1e3a5f,#7c3aed);">⚡</div>
+                  <div class="s-event-body">
+                    <div class="s-event-name">Evento Eclipse</div>
+                    <div class="s-event-meta">📅 02 Ago 2025 · 23:00</div>
+                    <div class="s-event-row">
+                      <span class="s-badge s-badge-gray">Borrador</span>
+                      <span style="font-size:9px;color:rgba(255,255,255,0.4);font-weight:700;">0/∞</span>
+                    </div>
+                    <div style="margin-top:4px;font-size:9px;color:rgba(255,255,255,0.35);font-weight:700;">💰 $0</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: TICKETS -->
+    <div class="tab-content" id="tab-tickets">
+      <div class="tab-text">
+        <h3>Tickets, Combos y Descuentos</h3>
+        <p>El sistema de tickets más flexible del mercado. Configurá cada detalle para maximizar tus ingresos y controlar exactamente quién accede a qué.</p>
+        <ul class="feature-list">
+          <li>Tickets individuales con precio, cupo y límite por compra</li>
+          <li>Combos que agrupan múltiples tickets (packs, VIP+consumición)</li>
+          <li>Códigos de descuento para preventa exclusiva o RRPP</li>
+          <li>Canal de venta: Online (app) o Presencial (FlashPOS en puerta)</li>
+          <li>Segmentación por género (Masculino / Femenino / Todos)</li>
+          <li>Activación condicional automática entre tandas</li>
+          <li>Ocultar tickets agotados del catálogo público</li>
+          <li>Duplicar tickets para crear tandas en segundos</li>
+        </ul>
+        <div class="highlight-box">
+          <span class="hi">🔁</span>
+          <span>La <strong>Activación condicional</strong> automatiza las tandas: cuando la 1ra tanda se agota, la 2da se activa sola. Sin intervención manual.</span>
+        </div>
+      </div>
+      <div class="tab-visual">
+        <div class="studio-frame">
+          <div class="studio-topbar">
+            <div class="s-dot" style="background:#ff5f57"></div>
+            <div class="s-dot" style="background:#ffbd2e"></div>
+            <div class="s-dot" style="background:#28c840"></div>
+            <span class="s-title">Tickets · Evento Mendoza Test</span>
+          </div>
+          <div class="studio-inner">
+            <div class="studio-sidebar">
+              <div class="s-nav-icon">🏠</div>
+              <div class="s-nav-icon active">🎟️</div>
+              <div class="s-nav-icon">📊</div>
+              <div class="s-nav-icon">👥</div>
+            </div>
+            <div class="studio-content">
+              <div class="s-page-title" style="margin-bottom:8px;">🎟️ Tipos de entrada · 3</div>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-left:3px solid #10b981;border-radius:7px;padding:7px 9px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <div>
+                      <div style="font-size:10px;font-weight:700;color:#f0f0f0;">1ra Tanda — General</div>
+                      <div style="font-size:9px;color:rgba(255,255,255,0.4);">450 / 500 · Límite 4 por compra</div>
+                    </div>
+                    <div style="text-align:right;">
+                      <div style="font-size:12px;font-weight:800;color:#a78bfa;">$4.500</div>
+                      <div style="font-size:8px;font-weight:700;color:#10b981;">● Activo</div>
+                    </div>
+                  </div>
+                  <div style="margin-top:5px;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;"><div style="width:90%;height:100%;background:linear-gradient(90deg,#10b981,#059669);border-radius:2px;"></div></div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-left:3px solid #f59e0b;border-radius:7px;padding:7px 9px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <div>
+                      <div style="font-size:10px;font-weight:700;color:#f0f0f0;">2da Tanda — General</div>
+                      <div style="font-size:9px;color:rgba(255,255,255,0.4);">auto-activación cuando agota 1ra</div>
+                    </div>
+                    <div style="text-align:right;">
+                      <div style="font-size:12px;font-weight:800;color:#a78bfa;">$6.000</div>
+                      <div style="font-size:8px;font-weight:700;color:#f59e0b;">⏳ En espera</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-left:3px solid #7c3aed;border-radius:7px;padding:7px 9px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <div>
+                      <div style="font-size:10px;font-weight:700;color:#f0f0f0;">VIP + Consumición</div>
+                      <div style="font-size:9px;color:rgba(255,255,255,0.4);">48 / 100 · Combo</div>
+                    </div>
+                    <div style="text-align:right;">
+                      <div style="font-size:12px;font-weight:800;color:#a78bfa;">$12.000</div>
+                      <div style="font-size:8px;font-weight:700;color:#10b981;">● Activo</div>
+                    </div>
+                  </div>
+                  <div style="margin-top:5px;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;"><div style="width:48%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:2px;"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: ANALYTICS -->
+    <div class="tab-content" id="tab-analytics">
+      <div class="tab-text">
+        <h3>Analytics en Tiempo Real</h3>
+        <p>Tomá decisiones con datos, no con intuición. El panel de analytics te da visibilidad completa sobre el rendimiento de tu evento en cada momento.</p>
+        <ul class="feature-list">
+          <li>Facturación total en ARS del período seleccionado</li>
+          <li>Tickets vendidos y monto total acumulado</li>
+          <li>Visitas a las páginas de tus eventos</li>
+          <li>Tipos de entrada activos y su facturación individual</li>
+          <li>Filtros por período (día, semana, mes, rango personalizado)</li>
+          <li>Filtros por evento específico para comparar rendimiento</li>
+          <li>Dashboard ejecutivo con métricas clave de un vistazo</li>
+        </ul>
+        <div class="highlight-box">
+          <span class="hi">📊</span>
+          <span>Combiná el filtro de <strong>período</strong> con el filtro de <strong>evento</strong> para comparar el rendimiento de diferentes eventos en la misma fecha.</span>
+        </div>
+      </div>
+      <div class="tab-visual">
+        <div class="studio-frame">
+          <div class="studio-topbar">
+            <div class="s-dot" style="background:#ff5f57"></div>
+            <div class="s-dot" style="background:#ffbd2e"></div>
+            <div class="s-dot" style="background:#28c840"></div>
+            <span class="s-title">Analytics · Feb–Mar 2026</span>
+          </div>
+          <div class="studio-inner">
+            <div class="studio-sidebar">
+              <div class="s-nav-icon">🏠</div>
+              <div class="s-nav-icon">📅</div>
+              <div class="s-nav-icon active">📊</div>
+              <div class="s-nav-icon">👥</div>
+            </div>
+            <div class="studio-content">
+              <div class="s-page-title" style="margin-bottom:8px;">📊 Analytics</div>
+              <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-left:3px solid #10b981;border-radius:7px;padding:8px 10px;margin-bottom:6px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.4);">Facturación Total</div>
+                <div style="font-size:20px;font-weight:900;color:#f0f0f0;letter-spacing:-1px;">$4.850.000</div>
+                <div style="font-size:9px;color:#10b981;font-weight:600;">↑ +23% vs período anterior</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px;">
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-left:3px solid #3b82f6;border-radius:7px;padding:7px 9px;">
+                  <div style="font-size:8px;color:rgba(255,255,255,0.4);">Tickets</div>
+                  <div style="font-size:14px;font-weight:800;color:#f0f0f0;">1.240</div>
+                  <div style="font-size:8px;color:#10b981;">↑ +18%</div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-left:3px solid #f59e0b;border-radius:7px;padding:7px 9px;">
+                  <div style="font-size:8px;color:rgba(255,255,255,0.4);">Vistas</div>
+                  <div style="font-size:14px;font-weight:800;color:#f0f0f0;">12.450</div>
+                  <div style="font-size:8px;color:#10b981;">↑ +9%</div>
+                </div>
+              </div>
+              <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:7px;padding:7px 9px;">
+                <div style="font-size:8px;color:rgba(255,255,255,0.4);margin-bottom:6px;">Ventas — últimos 7 días</div>
+                <div class="s-chart-bar">
+                  <div class="s-bar" style="height:30%"></div>
+                  <div class="s-bar" style="height:55%"></div>
+                  <div class="s-bar" style="height:40%"></div>
+                  <div class="s-bar hi" style="height:90%"></div>
+                  <div class="s-bar" style="height:65%"></div>
+                  <div class="s-bar hi" style="height:80%"></div>
+                  <div class="s-bar" style="height:70%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: VENTAS -->
+    <div class="tab-content" id="tab-ventas">
+      <div class="tab-text">
+        <h3>Reporte de Ventas</h3>
+        <p>Toda la información de ventas de un evento específico en un solo lugar. Exportable en CSV para tu propio análisis o para el equipo de finanzas.</p>
+        <ul class="feature-list">
+          <li>Resumen: facturación total, tickets vendidos, tasa de ocupación</li>
+          <li>Desglose por tipo de entrada y canal de venta</li>
+          <li>Ventas por colaborador: qué vendió cada RRPP o vendedor</li>
+          <li>Historial completo de órdenes con nombre, email, monto y fecha</li>
+          <li>Exportación a CSV con un clic</li>
+        </ul>
+        <div class="highlight-box">
+          <span class="hi">📥</span>
+          <span>Exportá el reporte completo en <strong>CSV</strong> desde el botón <em>Descargar Reporte</em> para integrarlo con tus herramientas de análisis.</span>
+        </div>
+      </div>
+      <div class="tab-visual">
+        <div class="studio-frame">
+          <div class="studio-topbar">
+            <div class="s-dot" style="background:#ff5f57"></div>
+            <div class="s-dot" style="background:#ffbd2e"></div>
+            <div class="s-dot" style="background:#28c840"></div>
+            <span class="s-title">Reporte de Ventas · Mendoza Test</span>
+          </div>
+          <div class="studio-inner">
+            <div class="studio-sidebar">
+              <div class="s-nav-icon">🏠</div>
+              <div class="s-nav-icon">📅</div>
+              <div class="s-nav-icon active">💰</div>
+            </div>
+            <div class="studio-content">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <div class="s-page-title">💰 Reporte de Ventas</div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);font-size:8px;font-weight:700;padding:3px 7px;border-radius:4px;">↓ CSV</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:8px;">
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-top:2px solid #10b981;border-radius:6px;padding:6px 8px;">
+                  <div style="font-size:8px;color:rgba(255,255,255,0.4);">Facturación</div>
+                  <div style="font-size:11px;font-weight:800;color:#10b981;">$2.34M</div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-top:2px solid #a78bfa;border-radius:6px;padding:6px 8px;">
+                  <div style="font-size:8px;color:rgba(255,255,255,0.4);">Tickets</div>
+                  <div style="font-size:11px;font-weight:800;color:#a78bfa;">520</div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-top:2px solid #3b82f6;border-radius:6px;padding:6px 8px;">
+                  <div style="font-size:8px;color:rgba(255,255,255,0.4);">Ocupación</div>
+                  <div style="font-size:11px;font-weight:800;color:#60a5fa;">37.1%</div>
+                </div>
+              </div>
+              <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:7px;padding:8px;">
+                <div style="font-size:8px;color:rgba(255,255,255,0.4);margin-bottom:5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Por tipo de entrada</div>
+                <div class="s-row"><span class="lbl">1ra Tanda General</span><span class="val green">$900.000</span></div>
+                <div class="s-row"><span class="lbl">2da Tanda General</span><span class="val green">$840.000</span></div>
+                <div class="s-row"><span class="lbl">VIP + Consumición</span><span class="val purple">$600.000</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: COLABORADORES -->
+    <div class="tab-content" id="tab-colaboradores">
+      <div class="tab-text">
+        <h3>Gestión de Equipos</h3>
+        <p>Asigná roles específicos a cada integrante de tu equipo. Cada persona ve y puede hacer exactamente lo que necesita — nada más, nada menos.</p>
+        <ul class="feature-list">
+          <li>Roles a nivel Productora: Administrador y Analista (solo lectura)</li>
+          <li>Roles por Evento: Admin, Artista, Supervisor, Validador, Vendedor</li>
+          <li>Equipos de Venta reutilizables entre eventos</li>
+          <li>Invitación por email — el rol se asigna cuando el usuario se registra</li>
+          <li>Un mismo usuario puede tener múltiples roles simultáneos</li>
+          <li>Visibilidad de invitaciones pendientes de registro</li>
+        </ul>
+        <div class="highlight-box">
+          <span class="hi">💡</span>
+          <span>Si un colaborador aún no tiene cuenta en FlashPass, agregalo con su email — recibirá automáticamente su rol cuando se registre.</span>
+        </div>
+      </div>
+      <div class="tab-visual">
+        <div class="studio-frame">
+          <div class="studio-topbar">
+            <div class="s-dot" style="background:#ff5f57"></div>
+            <div class="s-dot" style="background:#ffbd2e"></div>
+            <div class="s-dot" style="background:#28c840"></div>
+            <span class="s-title">Colaboradores · Evento Mendoza</span>
+          </div>
+          <div class="studio-inner">
+            <div class="studio-sidebar">
+              <div class="s-nav-icon">🏠</div>
+              <div class="s-nav-icon">📅</div>
+              <div class="s-nav-icon active">👥</div>
+            </div>
+            <div class="studio-content">
+              <div class="s-page-title" style="margin-bottom:8px;">👥 Equipo del evento</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 9px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;flex-shrink:0;">MG</div>
+                  <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:#f0f0f0;">Marcos G.</div><div style="font-size:8px;color:rgba(255,255,255,0.4);">marcos@prod.com</div></div>
+                  <div style="font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px;background:rgba(124,58,237,0.2);color:#a78bfa;">Admin</div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 9px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;flex-shrink:0;">LA</div>
+                  <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:#f0f0f0;">Lucía A.</div><div style="font-size:8px;color:rgba(255,255,255,0.4);">lucia@rrpp.com</div></div>
+                  <div style="font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px;background:rgba(16,185,129,0.2);color:#10b981;">Vendedora</div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 9px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ec4899);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;flex-shrink:0;">PR</div>
+                  <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:#f0f0f0;">Pablo R.</div><div style="font-size:8px;color:rgba(255,255,255,0.4);">pablo@staff.com</div></div>
+                  <div style="font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px;background:rgba(59,130,246,0.2);color:#60a5fa;">Validador</div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 9px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">+</div>
+                  <div style="flex:1;font-size:9px;color:rgba(255,255,255,0.35);">Invitar colaborador por email…</div>
+                  <div style="font-size:8px;font-weight:700;padding:2px 6px;border-radius:3px;background:#7c3aed;color:white;">Invitar</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: CRM -->
+    <div class="tab-content" id="tab-crm-tab">
+      <div class="tab-text">
+        <h3>CRM — Conocé a tu audiencia</h3>
+        <p>El CRM de FlashPass te permite construir una base de clientes real a lo largo de todos tus eventos. Identificá quiénes son tus clientes más valiosos y fidelizalos.</p>
+        <ul class="feature-list">
+          <li>Ranking de clientes por facturación total en el período</li>
+          <li>Historial completo de compras por cliente</li>
+          <li>Cantidad de eventos diferentes a los que asistió</li>
+          <li>Gasto promedio por evento</li>
+          <li>Gestión de cumpleaños para acciones especiales</li>
+          <li>Segmentación de audiencia para preventas exclusivas</li>
+        </ul>
+        <div class="highlight-box">
+          <span class="hi">🎯</span>
+          <span>Usá el ranking para identificar tus <strong>clientes recurrentes</strong>. Son el segmento ideal para preventas exclusivas y listas VIP.</span>
+        </div>
+      </div>
+      <div class="tab-visual">
+        <div class="studio-frame">
+          <div class="studio-topbar">
+            <div class="s-dot" style="background:#ff5f57"></div>
+            <div class="s-dot" style="background:#ffbd2e"></div>
+            <div class="s-dot" style="background:#28c840"></div>
+            <span class="s-title">CRM · Ranking de clientes 2026</span>
+          </div>
+          <div class="studio-inner">
+            <div class="studio-sidebar">
+              <div class="s-nav-icon">🏠</div>
+              <div class="s-nav-icon">📅</div>
+              <div class="s-nav-icon active">💎</div>
+            </div>
+            <div class="studio-content">
+              <div class="s-page-title" style="margin-bottom:8px;">💎 Top Clientes</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 9px;display:flex;align-items:center;gap:8px;">
+                  <div style="font-size:12px;font-weight:800;color:#f59e0b;width:16px;">🥇</div>
+                  <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;flex-shrink:0;">AM</div>
+                  <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:#f0f0f0;">Agustín M.</div><div style="font-size:8px;color:rgba(255,255,255,0.4);">12 eventos · prom. $9.800</div></div>
+                  <div style="font-size:11px;font-weight:800;color:#10b981;">$117.600</div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 9px;display:flex;align-items:center;gap:8px;">
+                  <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,0.5);width:16px;">🥈</div>
+                  <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;flex-shrink:0;">LG</div>
+                  <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:#f0f0f0;">Lucía G.</div><div style="font-size:8px;color:rgba(255,255,255,0.4);">9 eventos · prom. $11.200</div></div>
+                  <div style="font-size:11px;font-weight:800;color:#10b981;">$100.800</div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 9px;display:flex;align-items:center;gap:8px;">
+                  <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,0.3);width:16px;">🥉</div>
+                  <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ec4899);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;flex-shrink:0;">FS</div>
+                  <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:#f0f0f0;">Facundo S.</div><div style="font-size:8px;color:rgba(255,255,255,0.4);">8 eventos · prom. $8.500</div></div>
+                  <div style="font-size:11px;font-weight:800;color:#10b981;">$68.000</div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 9px;display:flex;align-items:center;gap:8px;">
+                  <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,0.2);width:16px;">4</div>
+                  <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#10b981,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;flex-shrink:0;">MR</div>
+                  <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:#f0f0f0;">Martina R.</div><div style="font-size:8px;color:rgba(255,255,255,0.4);">7 eventos · prom. $9.200</div></div>
+                  <div style="font-size:11px;font-weight:800;color:#10b981;">$64.400</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: VENUES -->
+    <div class="tab-content" id="tab-venues">
+      <div class="tab-text">
+        <h3>Establecimientos</h3>
+        <p>Configurá tu venue una vez y reutilizalo en todos tus eventos. Desde la dirección hasta el inventario de la barra, todo centralizado.</p>
+        <ul class="feature-list">
+          <li>Nombre, dirección geolocalizada, provincia y descripción</li>
+          <li>Capacidad máxima con código único de establecimiento</li>
+          <li>Empleados autorizados para operar el FlashPOS</li>
+          <li>Mapa de mesas para pedidos por sector</li>
+          <li>Cajas y estaciones de preparación (cocina, barra)</li>
+          <li>Cartas con categorías, productos y precios</li>
+          <li>Inventario con descuento automático por venta</li>
+          <li>Almacenes físicos asociados al inventario</li>
+          <li>Integración con MercadoPago QR y link de pago</li>
+        </ul>
+        <div class="highlight-box">
+          <span class="hi">⚠️</span>
+          <span>Configurá el inventario y las cajas <strong>antes del evento</strong>, no durante. Los cambios afectan la operación en tiempo real.</span>
+        </div>
+      </div>
+      <div class="tab-visual">
+        <div class="studio-frame">
+          <div class="studio-topbar">
+            <div class="s-dot" style="background:#ff5f57"></div>
+            <div class="s-dot" style="background:#ffbd2e"></div>
+            <div class="s-dot" style="background:#28c840"></div>
+            <span class="s-title">Establecimientos · Club XYZ</span>
+          </div>
+          <div class="studio-inner">
+            <div class="studio-sidebar">
+              <div class="s-nav-icon">🏠</div>
+              <div class="s-nav-icon">📅</div>
+              <div class="s-nav-icon active">🏟️</div>
+            </div>
+            <div class="studio-content">
+              <div class="s-page-title" style="margin-bottom:8px;">🏟️ Club XYZ — Mendoza</div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;">
+                <div style="background:#7c3aed;color:white;font-size:8px;font-weight:700;padding:3px 7px;border-radius:20px;">Información</div>
+                <div style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);font-size:8px;font-weight:700;padding:3px 7px;border-radius:20px;">Empleados</div>
+                <div style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);font-size:8px;font-weight:700;padding:3px 7px;border-radius:20px;">Mesas</div>
+                <div style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);font-size:8px;font-weight:700;padding:3px 7px;border-radius:20px;">Cajas</div>
+                <div style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);font-size:8px;font-weight:700;padding:3px 7px;border-radius:20px;">Cartas</div>
+                <div style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);font-size:8px;font-weight:700;padding:3px 7px;border-radius:20px;">Inventario</div>
+                <div style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);font-size:8px;font-weight:700;padding:3px 7px;border-radius:20px;">MP</div>
+              </div>
+              <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:7px;padding:8px;">
+                <div class="s-row"><span class="lbl">Nombre</span><span class="val">Club XYZ</span></div>
+                <div class="s-row"><span class="lbl">Dirección</span><span class="val">Av. Principal 1420, Mendoza</span></div>
+                <div class="s-row"><span class="lbl">Capacidad máx.</span><span class="val purple">1.400 personas</span></div>
+                <div class="s-row"><span class="lbl">Código</span><span class="val">#48291</span></div>
+                <div class="s-row"><span class="lbl">Estado</span><span class="val" style="color:#10b981">● Activo</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: POS -->
+    <div class="tab-content" id="tab-pos">
+      <div class="tab-text">
+        <h3>FlashPOS — Punto de Venta</h3>
+        <p>Un sistema de punto de venta completo para gestionar consumiciones y productos dentro del evento. Eliminá el efectivo, reducí tiempos y aumentá tu ticket promedio.</p>
+        <ul class="feature-list">
+          <li>Venta de consumiciones y productos por sector</li>
+          <li>Cajas múltiples configurables por punto de cobro</li>
+          <li>Estaciones de preparación: cocina, barra, etc.</li>
+          <li>Menús con categorías y precios actualizables</li>
+          <li>Órdenes con historial completo del establecimiento</li>
+          <li>Descuento automático de inventario por cada venta</li>
+          <li>Moneda configurable: ARS o créditos internos</li>
+        </ul>
+      </div>
+      <div class="tab-visual">
+        <div class="studio-frame">
+          <div class="studio-topbar">
+            <div class="s-dot" style="background:#ff5f57"></div>
+            <div class="s-dot" style="background:#ffbd2e"></div>
+            <div class="s-dot" style="background:#28c840"></div>
+            <span class="s-title">FlashPOS · Barra Central</span>
+          </div>
+          <div class="studio-inner">
+            <div class="studio-sidebar">
+              <div class="s-nav-icon">🏠</div>
+              <div class="s-nav-icon active">🍹</div>
+            </div>
+            <div class="studio-content">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <div class="s-page-title">🍹 Barra Central</div>
+                <div style="font-size:8px;font-weight:700;padding:3px 7px;border-radius:20px;background:rgba(16,185,129,0.15);color:#10b981;">● En operación</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px;">
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:7px;cursor:pointer;">
+                  <div style="font-size:14px;margin-bottom:3px;">🍺</div>
+                  <div style="font-size:9px;font-weight:700;color:#f0f0f0;">Cerveza artesanal</div>
+                  <div style="font-size:10px;font-weight:800;color:#a78bfa;margin-top:2px;">$2.800</div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:7px;cursor:pointer;">
+                  <div style="font-size:14px;margin-bottom:3px;">🍹</div>
+                  <div style="font-size:9px;font-weight:700;color:#f0f0f0;">Trago largo</div>
+                  <div style="font-size:10px;font-weight:800;color:#a78bfa;margin-top:2px;">$4.200</div>
+                </div>
+                <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:7px;cursor:pointer;">
+                  <div style="font-size:14px;margin-bottom:3px;">🥤</div>
+                  <div style="font-size:9px;font-weight:700;color:#f0f0f0;">Agua mineral</div>
+                  <div style="font-size:10px;font-weight:800;color:#a78bfa;margin-top:2px;">$1.200</div>
+                </div>
+                <div style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);border-radius:6px;padding:7px;cursor:pointer;">
+                  <div style="font-size:14px;margin-bottom:3px;">🍾</div>
+                  <div style="font-size:9px;font-weight:700;color:#a78bfa;">Botella VIP</div>
+                  <div style="font-size:10px;font-weight:800;color:#a78bfa;margin-top:2px;">$28.000</div>
+                </div>
+              </div>
+              <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:7px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.4);">Ventas hoy</div>
+                <div style="font-size:14px;font-weight:900;color:#10b981;">$847.400</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: FLASHPAY -->
+    <div class="tab-content" id="tab-pay">
+      <div class="tab-text">
+        <h3>FlashPay — Billetera Digital</h3>
+        <p>El futuro del evento sin filas. FlashPay es la billetera digital con créditos internos que elimina la fila en la barra y acelera cada transacción.</p>
+        <ul class="feature-list">
+          <li>Tus clientes cargan créditos antes o durante el evento</li>
+          <li>Consumen desde la app sin sacar efectivo ni tarjeta</li>
+          <li>Eliminación total de filas en barra y cajas</li>
+          <li>Integración nativa con FlashPOS</li>
+          <li>Mayor velocidad = más rotación = más ventas</li>
+        </ul>
+        <div class="highlight-box">
+          <span class="hi">⚡</span>
+          <span>Los eventos con <strong>FlashPay</strong> reportan mayor consumición promedio por persona al eliminar la fricción del pago físico.</span>
+        </div>
+      </div>
+      <div class="tab-visual">
+        <div class="studio-frame">
+          <div class="studio-topbar">
+            <div class="s-dot" style="background:#ff5f57"></div>
+            <div class="s-dot" style="background:#ffbd2e"></div>
+            <div class="s-dot" style="background:#28c840"></div>
+            <span class="s-title">FlashPay · Billetera digital</span>
+          </div>
+          <div class="studio-inner">
+            <div class="studio-sidebar">
+              <div class="s-nav-icon active">⚡</div>
+            </div>
+            <div class="studio-content">
+              <div class="s-page-title" style="margin-bottom:8px;">⚡ FlashPay</div>
+              <div style="background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(236,72,153,0.2));border:1px solid rgba(124,58,237,0.3);border-radius:10px;padding:12px;margin-bottom:7px;text-align:center;">
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);margin-bottom:4px;">Créditos disponibles</div>
+                <div style="font-size:24px;font-weight:900;color:#f0f0f0;letter-spacing:-1px;">$8.400</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.4);margin-top:4px;">Sin efectivo · Sin tarjeta · Sin fila</div>
+              </div>
+              <div style="background:#161b22;border:1px solid rgba(255,255,255,0.06);border-radius:7px;padding:8px;">
+                <div style="font-size:8px;color:rgba(255,255,255,0.4);margin-bottom:5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Últimos consumos</div>
+                <div class="s-row"><span class="lbl">🍹 Trago largo</span><span class="val">- $4.200</span></div>
+                <div class="s-row"><span class="lbl">🍺 Cerveza artesanal</span><span class="val">- $2.800</span></div>
+                <div class="s-row"><span class="lbl">🥤 Agua mineral</span><span class="val">- $1.200</span></div>
+                <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.04);display:flex;justify-content:space-between;align-items:center;">
+                  <span style="font-size:9px;color:rgba(255,255,255,0.4);">Total gastado hoy</span>
+                  <span style="font-size:12px;font-weight:800;color:#10b981;">$12.600</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EQUIPO Y ROLES -->
+<section id="equipo">
+  <div class="section-label">✦ Tu equipo, organizado</div>
+  <h2 class="section-title">Cada persona en su lugar.<br>Cada rol, bien definido.</h2>
+  <p class="section-sub">Desde el RRPP que vende en Instagram hasta el validador en puerta — todos tienen su acceso exacto en FlashPass.</p>
+
+  <div class="roles-grid">
+    <div class="role-card">
+      <div class="role-icon">👑</div>
+      <h4>Administrador de Productora</h4>
+      <p>Acceso completo para gestionar todos los recursos. El rol que usás vos como productor principal.</p>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">📈</div>
+      <h4>Analista de Productora</h4>
+      <p>Solo lectura. Acceso a datos financieros y de marketing sin poder modificar nada. Ideal para socios o contadores.</p>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">🎪</div>
+      <h4>Administrador del Evento</h4>
+      <p>Configura ventas, promociones, cortesías y personal para un evento específico.</p>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">🔭</div>
+      <h4>Supervisor del Evento</h4>
+      <p>Monitorea KPIs en vivo y supervisa operaciones durante el evento. Sin acceso a configuraciones.</p>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">🔍</div>
+      <h4>Validador de Entradas</h4>
+      <p>Escanea y valida credenciales de acceso en puerta. Acceso exclusivo a la función de validación.</p>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">💼</div>
+      <h4>Vendedor del Evento</h4>
+      <p>Vende entradas para un evento específico. Puede pertenecer a Equipos de Venta reutilizables.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CRM DESTACADO -->
+<section id="crm">
+  <div class="section-label">✦ Conocé a tu audiencia</div>
+  <h2 class="section-title">Tu base de clientes<br>crece con cada evento</h2>
+  <p class="section-sub">El CRM de FlashPass no es una base de datos estática. Es un ranking vivo que te muestra exactamente quiénes son tus mejores clientes y con qué frecuencia vuelven.</p>
+
+  <div style="display:flex; gap:32px; flex-wrap:wrap; align-items:flex-start; margin-top:40px;">
+    <div style="flex:1; min-width:280px;">
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div class="mock-card">
+          <div style="font-size:13px; font-weight:700; color:var(--fp-text-muted); margin-bottom:14px; letter-spacing:1px; text-transform:uppercase;">Métricas por cliente</div>
+          <div class="mock-row"><span class="label">Facturación total</span><span class="value green">Total gastado en el período</span></div>
+          <div class="mock-row"><span class="label">Órdenes</span><span class="value">Cantidad de transacciones</span></div>
+          <div class="mock-row"><span class="label">Promedio por evento</span><span class="value">Gasto promedio por asistencia</span></div>
+          <div class="mock-row"><span class="label">Eventos</span><span class="value purple">Eventos diferentes a los que fue</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1; min-width:280px;">
+      <div class="mock-card">
+        <div class="mock-header">
+          <span class="mock-title">💎 Top 4 clientes del año</span>
+        </div>
+        <div class="crm-row">
+          <div class="crm-avatar">AM</div>
+          <div><div class="crm-name">Agustín M.</div><div class="crm-events">12 eventos · $9.800 prom.</div></div>
+          <div class="crm-amount">$117.600</div>
+        </div>
+        <div class="crm-row">
+          <div class="crm-avatar">LG</div>
+          <div><div class="crm-name">Lucía G.</div><div class="crm-events">9 eventos · $11.200 prom.</div></div>
+          <div class="crm-amount">$100.800</div>
+        </div>
+        <div class="crm-row">
+          <div class="crm-avatar">FS</div>
+          <div><div class="crm-name">Facundo S.</div><div class="crm-events">8 eventos · $8.500 prom.</div></div>
+          <div class="crm-amount">$68.000</div>
+        </div>
+        <div class="crm-row">
+          <div class="crm-avatar">MR</div>
+          <div><div class="crm-name">Martina R.</div><div class="crm-events">7 eventos · $9.200 prom.</div></div>
+          <div class="crm-amount">$64.400</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COBROS Y PAGOS -->
+<section id="cobros">
+  <div class="section-label">✦ Sin sorpresas</div>
+  <h2 class="section-title">El dinero es tuyo.<br>Se acredita directo.</h2>
+  <p class="section-sub">FlashPass no retiene tu plata. Cada venta va directo a tu cuenta de MercadoPago, y el fee se descuenta automáticamente.</p>
+
+  <div class="pricing-box">
+    <h3>Modelo de cobro transparente</h3>
+    <p class="pricing-sub">Sin contratos, sin costos fijos. Solo pagás cuando vendés.</p>
+
+    <div class="pricing-perks">
+      <div class="perk">
+        <div class="perk-icon">💳</div>
+        <span>Fee por entrada vendida</span>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">🎁</div>
+        <span>Cortesías sin costo</span>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">⚡</div>
+        <span>Acreditación en 1-3 días hábiles</span>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">🔗</div>
+        <span>Vinculación directa con MercadoPago</span>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">🏦</div>
+        <span>CBU para pagos semanales automáticos</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; max-width:700px; margin:0 auto 40px; text-align:left;">
+      <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:20px;">
+        <div style="font-size:12px; color:var(--fp-text-muted); font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Paso 1</div>
+        <div style="font-weight:700; margin-bottom:6px;">Vinculás MercadoPago</div>
+        <div style="font-size:13px; color:var(--fp-text-muted);">Las ventas acreditan directo en tu cuenta, sin intermediarios.</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:20px;">
+        <div style="font-size:12px; color:var(--fp-text-muted); font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Paso 2</div>
+        <div style="font-weight:700; margin-bottom:6px;">Recibís en tiempo real</div>
+        <div style="font-size:13px; color:var(--fp-text-muted);">Cada venta acredita en 1-3 días hábiles para tarjeta.</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:20px;">
+        <div style="font-size:12px; color:var(--fp-text-muted); font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Paso 3</div>
+        <div style="font-weight:700; margin-bottom:6px;">Liquidación automática</div>
+        <div style="font-size:13px; color:var(--fp-text-muted);">FlashPass descuenta el fee automáticamente. Vos ves siempre el neto.</div>
+      </div>
+    </div>
+
+    <a href="https://studio.flashpass.com.ar" target="_blank" class="btn-primary">
+      Empezar ahora — Es gratis 🚀
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-label">✦ Preguntas frecuentes</div>
+  <h2 class="section-title">Todo lo que necesitás saber</h2>
+  <p class="section-sub">Respuestas rápidas a las preguntas más comunes de productores nuevos.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Cuánto tiempo tarda publicar mi primer evento?
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        El proceso completo — desde crear tu productora hasta publicar el evento — tarda menos de 10 minutos. Una vez publicado, el evento entra en revisión por parte de FlashPass, lo que normalmente dura menos de 24 horas. Podés seguir configurando tickets y colaboradores mientras tanto.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Cómo recibo el dinero de las ventas?
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Las ventas acreditan directamente en tu cuenta de MercadoPago, sin intermediarios. El fee de FlashPass se descuenta automáticamente, así que siempre ves el neto. La acreditación toma entre 1-3 días hábiles dependiendo del medio de pago usado por el comprador. También podés agregar tu CBU para recibir pagos semanales automáticos.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Puedo gestionar preventas por tandas?
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Sí, y es muy fácil. Creás el primer ticket con su precio y cupo, lo duplicás y cambiás el precio y las fechas para la segunda tanda. La función de <strong>Activación condicional</strong> automatiza el proceso: cuando la primera tanda se agota, la segunda se activa automáticamente sin que tengas que intervenir.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Puedo tener RRPP con su propio link de venta?
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Sí. Podés agregar a tus RRPP como colaboradores con el rol <strong>Vendedor del Evento</strong>. Cada uno tiene su propio acceso y podés ver en el reporte de ventas exactamente cuánto vendió cada uno. También podés organizar a varios RRPP en Equipos de Venta reutilizables para asignarlos a múltiples eventos a la vez.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Las cortesías tienen costo?
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        No. Las cortesías no generan fee de plataforma. Solo pagás el fee sobre las entradas que efectivamente se venden a precio.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Qué pasa si quiero un evento privado?
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Al publicar el evento podés elegir visibilidad <strong>Privada</strong>, lo que significa que el evento no aparece en el catálogo público de la app FlashPass. Solo pueden acceder quienes tengan el link directo. Ideal para eventos corporativos, fiestas privadas o preventas exclusivas.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Funciona para Argentina y Uruguay?
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Sí. FlashPass Studio opera en Argentina y Uruguay. La plataforma está adaptada a la realidad fiscal y de medios de pago de ambos países.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="divider"></div>
+<div class="cta-section">
+  <div class="hero-badge" style="margin-bottom:24px;">✦ ¿Listo para dar el salto?</div>
+  <h2>
+    Tu próximo evento<br>
+    <span style="background:linear-gradient(135deg,var(--fp-purple-light),var(--fp-pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">merece la mejor herramienta</span>
+  </h2>
+  <p>Unite a los productores que ya confían en FlashPass. Creá tu cuenta, publicá tu primer evento y empezá a vender hoy.</p>
+  <div class="hero-actions" style="justify-content:center;">
+    <a href="https://studio.flashpass.com.ar" target="_blank" class="btn-primary glow">
+      🚀 Crear mi productora gratis
+    </a>
+    <a href="https://flash-pass-prototype.vercel.app/" target="_blank" class="btn-secondary">
+      📖 Ver guía completa
+    </a>
+  </div>
+  <div style="margin-top:40px; font-size:13px; color:var(--fp-text-muted);">
+    Sin costo fijo · Sin contratos · Empezás vendiendo en minutos
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--fp-dark-2); border-top:1px solid rgba(124,58,237,0.1); padding:32px 24px; text-align:center;">
+  <img src="assets/logo.png" alt="FlashPass" style="height:32px; width:auto; margin-bottom:8px;">
+  <div style="font-size:13px; color:var(--fp-text-muted);">La plataforma completa para productores de eventos en Argentina y Uruguay</div>
+  <div style="margin-top:16px; display:flex; gap:24px; justify-content:center; flex-wrap:wrap;">
+    <a href="https://studio.flashpass.com.ar" target="_blank" style="color:var(--fp-text-muted); text-decoration:none; font-size:13px; font-weight:500; transition:color 0.2s;" onmouseover="this.style.color='#A78BFA'" onmouseout="this.style.color='var(--fp-text-muted)'">Studio →</a>
+    <a href="https://flash-pass-prototype.vercel.app/" target="_blank" style="color:var(--fp-text-muted); text-decoration:none; font-size:13px; font-weight:500; transition:color 0.2s;" onmouseover="this.style.color='#A78BFA'" onmouseout="this.style.color='var(--fp-text-muted)'">Guía oficial →</a>
+  </div>
+</footer>
+
+<script>
+  // Tab switching
+  function openTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    document.querySelector('[data-tab="' + tabId + '"]').classList.add('active');
+  }
+
+  function scrollToTab(tabId) {
+    document.getElementById('feature-tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => openTab(tabId), 400);
+  }
+
+  // FAQ accordion
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Nav active state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => {
+          a.classList.remove('active');
+          if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Animate progress bars when visible
+  const progressObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+          const width = bar.style.width;
+          bar.style.width = '0';
+          setTimeout(() => bar.style.width = width, 100);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.mock-card').forEach(card => progressObserver.observe(card));
+</script>
+
+</body>
+</html>
