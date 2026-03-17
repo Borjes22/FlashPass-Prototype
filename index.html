@@ -6,6 +6,7 @@
 <title>FlashPass Studio — Guía</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -17,8 +18,11 @@
 
   :root {
     --bg: #080808;
-    --surface: #0f0f0f;
-    --surface2: #161616;
+    --bg-gradient: linear-gradient(135deg, #0a0a0f 0%, #0d0a14 50%, #080808 100%);
+    --surface: rgba(15,15,20,0.6);
+    --surface2: rgba(22,22,30,0.5);
+    --glass: rgba(255,255,255,0.03);
+    --glass-border: rgba(255,255,255,0.06);
     --border: #1f1f1f;
     --border2: #2a2a2a;
     --text: #e8e8e8;
@@ -29,6 +33,7 @@
     --accent-glow: rgba(124,58,237,0.15);
     --green: #10b981;
     --sidebar-w: 260px;
+    --blur: 16px;
   }
 
   html {
@@ -38,7 +43,8 @@
 
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
+    background: var(--bg-gradient);
+    background-attachment: fixed;
     color: var(--text);
     display: flex;
     min-height: 100vh;
@@ -52,8 +58,10 @@
   .sidebar {
     width: var(--sidebar-w);
     min-height: 100vh;
-    background: var(--surface);
-    border-right: 1px solid var(--border);
+    background: rgba(12,12,18,0.75);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    border-right: 1px solid var(--glass-border);
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -61,6 +69,7 @@
     overflow-y: auto;
     z-index: 100;
     transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.2);
   }
 
   /* ── HAMBURGER ── */
@@ -184,6 +193,7 @@
     /* Logo */
     .logo-full { display: none !important; }
     .logo-icon-img { display: block !important; }
+    .nav-item { margin: 0 8px !important; }
   }
 
   @media (max-width: 400px) {
@@ -199,19 +209,21 @@
 
   .logo {
     padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--glass-border);
     display: flex;
     align-items: center;
     gap: 10px;
     min-height: 60px;
+    background: rgba(0,0,0,0.2);
   }
 
   .logo-icon {
     width: 30px; height: 30px;
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent) 0%, #6d28d9 100%);
     border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
     font-size: 14px; font-weight: 700; color: white;
+    box-shadow: 0 2px 12px rgba(124,58,237,0.4);
   }
 
   .logo-text {
@@ -239,32 +251,44 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--muted);
-    padding: 10px 20px 4px;
+    padding: 14px 20px 6px;
   }
 
   .nav-item {
-    display: block;
-    padding: 6px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
     font-size: 13.5px;
     color: var(--muted);
     text-decoration: none;
-    border-radius: 0;
-    transition: color 0.15s, background 0.15s;
+    border-radius: 8px;
+    margin: 0 12px;
+    transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
     cursor: pointer;
-    border-left: 2px solid transparent;
+    border: 1px solid transparent;
   }
-
+  .nav-item .nav-icon {
+    width: 18px; height: 18px;
+    opacity: 0.7;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
   .nav-item:hover {
     color: var(--text);
-    background: var(--surface2);
+    background: rgba(255,255,255,0.05);
+    border-color: var(--glass-border);
+    transform: translateX(2px);
   }
-
+  .nav-item:hover .nav-icon { opacity: 1; transform: scale(1.05); }
   .nav-item.active {
     color: var(--accent-light);
-    background: var(--accent-glow);
-    border-left-color: var(--accent);
+    background: rgba(124,58,237,0.12);
+    border-color: rgba(124,58,237,0.3);
     font-weight: 500;
+    box-shadow: 0 0 20px rgba(124,58,237,0.1);
   }
+  .nav-item.active .nav-icon { opacity: 1; color: var(--accent-light); }
 
   /* ── MAIN ── */
   .main {
@@ -278,17 +302,19 @@
 
   /* ── TOPBAR ── */
   .topbar {
-    height: 52px;
-    border-bottom: 1px solid var(--border);
+    height: 56px;
+    border-bottom: 1px solid var(--glass-border);
     display: flex;
     align-items: center;
     padding: 0 48px;
     position: sticky;
     top: 0;
-    background: rgba(8,8,8,0.92);
-    backdrop-filter: blur(12px);
+    background: rgba(8,8,12,0.7);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
     z-index: 50;
     gap: 8px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.02);
   }
 
   .breadcrumb {
@@ -310,18 +336,22 @@
   }
 
   .btn-studio {
-    padding: 6px 14px;
-    background: var(--accent);
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--accent) 0%, #6d28d9 100%);
     color: white;
-    border: none;
-    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
     font-family: inherit;
-    transition: opacity 0.15s;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(124,58,237,0.3);
   }
-  .btn-studio:hover { opacity: 0.85; }
+  .btn-studio:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(124,58,237,0.4);
+  }
 
   /* ── CONTENT ── */
   .content {
@@ -332,10 +362,10 @@
   }
 
   .page { display: none; }
-  .page.active { display: block; animation: fadeIn 0.2s ease; }
+  .page.active { display: block; animation: fadeIn 0.3s cubic-bezier(0.4,0,0.2,1); }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
+    from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -402,14 +432,18 @@
     width: 100%;
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
-    border: 1px solid var(--border2);
-    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
     display: block;
     image-rendering: auto;
-    transition: opacity 0.2s ease;
+    transition: all 0.2s ease;
   }
-  .screenshot-wrap:hover .screenshot { opacity: 0.95; }
+  .screenshot-wrap:hover .screenshot {
+    opacity: 0.95;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    border-color: rgba(124,58,237,0.2);
+  }
 
   img { max-width: 100%; height: auto; }
 
@@ -445,6 +479,11 @@
     border-collapse: collapse;
     margin: 16px 0 28px;
     font-size: 13.5px;
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
   }
 
   th {
@@ -472,13 +511,22 @@
 
   /* ── CALLOUT ── */
   .callout {
-    border-radius: 8px;
-    padding: 14px 18px;
+    border-radius: 12px;
+    padding: 16px 20px;
     margin: 20px 0;
     font-size: 13.5px;
     display: flex;
     gap: 12px;
     align-items: flex-start;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    transition: all 0.2s ease;
+  }
+  .callout:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.08);
   }
 
   .callout.tip {
@@ -511,16 +559,28 @@
     gap: 16px;
     margin-bottom: 16px;
     align-items: flex-start;
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.2s ease;
+  }
+  .step:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(124,58,237,0.2);
+    transform: translateX(4px);
   }
   .step-num {
-    width: 26px; height: 26px;
-    background: var(--accent);
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--accent) 0%, #6d28d9 100%);
     color: white;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-size: 12px; font-weight: 700;
     flex-shrink: 0;
     margin-top: 2px;
+    box-shadow: 0 2px 8px rgba(124,58,237,0.4);
   }
   .step-body { flex: 1; }
   .step-title { font-weight: 600; color: var(--text); font-size: 14px; margin-bottom: 4px; }
@@ -534,10 +594,19 @@
     margin: 20px 0 32px;
   }
   .metric {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
+    background: rgba(22,22,30,0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 18px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  }
+  .metric:hover {
+    transform: translateY(-2px);
+    border-color: rgba(124,58,237,0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 20px rgba(124,58,237,0.05);
   }
   .metric-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
   .metric-value { font-size: 22px; font-weight: 600; color: var(--text); letter-spacing: -0.5px; }
@@ -569,38 +638,38 @@
   <nav>
     <div class="nav-section">
       <div class="nav-label">Primeros pasos</div>
-      <a class="nav-item active" onclick="show('introduccion', this)">Introducción</a>
-      <a class="nav-item" onclick="show('crear-evento', this)">Crea tu primer evento</a>
-      <a class="nav-item" onclick="show('onboarding', this)">Registro paso a paso</a>
+      <a class="nav-item active" onclick="show('introduccion', this)"><i data-lucide="home" class="nav-icon"></i><span>Introducción</span></a>
+      <a class="nav-item" onclick="show('crear-evento', this)"><i data-lucide="sparkles" class="nav-icon"></i><span>Crea tu primer evento</span></a>
+      <a class="nav-item" onclick="show('onboarding', this)"><i data-lucide="user-plus" class="nav-icon"></i><span>Registro paso a paso</span></a>
     </div>
     <div class="nav-section">
       <div class="nav-label">Dashboard</div>
-      <a class="nav-item" onclick="show('dashboard', this)">Resumen</a>
-      <a class="nav-item" onclick="show('analytics', this)">Analytics</a>
+      <a class="nav-item" onclick="show('dashboard', this)"><i data-lucide="layout-dashboard" class="nav-icon"></i><span>Resumen</span></a>
+      <a class="nav-item" onclick="show('analytics', this)"><i data-lucide="trending-up" class="nav-icon"></i><span>Analytics</span></a>
     </div>
     <div class="nav-section">
       <div class="nav-label">Eventos</div>
-      <a class="nav-item" onclick="show('eventos', this)">Lista de eventos</a>
-      <a class="nav-item" onclick="show('entradas', this)">Entradas y sectores</a>
-      <a class="nav-item" onclick="show('reporte', this)">Reporte de ventas</a>
+      <a class="nav-item" onclick="show('eventos', this)"><i data-lucide="calendar" class="nav-icon"></i><span>Lista de eventos</span></a>
+      <a class="nav-item" onclick="show('entradas', this)"><i data-lucide="ticket" class="nav-icon"></i><span>Entradas y sectores</span></a>
+      <a class="nav-item" onclick="show('reporte', this)"><i data-lucide="bar-chart-2" class="nav-icon"></i><span>Reporte de ventas</span></a>
     </div>
     <div class="nav-section">
       <div class="nav-label">Equipo</div>
-      <a class="nav-item" onclick="show('colaboradores', this)">Colaboradores</a>
+      <a class="nav-item" onclick="show('colaboradores', this)"><i data-lucide="users" class="nav-icon"></i><span>Colaboradores</span></a>
     </div>
     <div class="nav-section">
       <div class="nav-label">Clientes</div>
-      <a class="nav-item" onclick="show('crm', this)">CRM — Gestión de Clientes</a>
+      <a class="nav-item" onclick="show('crm', this)"><i data-lucide="circle-user" class="nav-icon"></i><span>CRM — Gestión de Clientes</span></a>
     </div>
     <div class="nav-section">
       <div class="nav-label">Venue y FlashPOS</div>
-      <a class="nav-item" onclick="show('venue', this)">Gestión del Venue</a>
-      <a class="nav-item" onclick="show('flashpos', this)">FlashPOS</a>
-      <a class="nav-item" onclick="show('flashpay', this)">FlashPay</a>
+      <a class="nav-item" onclick="show('venue', this)"><i data-lucide="building" class="nav-icon"></i><span>Gestión del Venue</span></a>
+      <a class="nav-item" onclick="show('flashpos', this)"><i data-lucide="monitor" class="nav-icon"></i><span>FlashPOS</span></a>
+      <a class="nav-item" onclick="show('flashpay', this)"><i data-lucide="smartphone" class="nav-icon"></i><span>FlashPay</span></a>
     </div>
     <div class="nav-section">
       <div class="nav-label">Cobros</div>
-      <a class="nav-item" onclick="show('costos', this)">Costos y pagos</a>
+      <a class="nav-item" onclick="show('costos', this)"><i data-lucide="wallet" class="nav-icon"></i><span>Costos y pagos</span></a>
     </div>
   </nav>
 </aside>
@@ -1103,6 +1172,8 @@
     img.parentNode.insertBefore(wrap, img);
     wrap.appendChild(img);
   });
+
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 </script>
 </body>
 </html>
