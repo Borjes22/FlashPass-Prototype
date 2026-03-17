@@ -375,18 +375,68 @@
   p { color: #b0b0b0; margin-bottom: 16px; }
 
   /* ── SCREENSHOT ── */
+  .screenshot-wrap {
+    cursor: zoom-in;
+    margin: 24px 0 32px;
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+  .screenshot-wrap::after {
+    content: '🔍 Click para ampliar';
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.9);
+    background: rgba(0,0,0,0.6);
+    padding: 4px 8px;
+    border-radius: 6px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .screenshot-wrap:hover::after { opacity: 1; }
   .screenshot {
     width: 100%;
     max-width: 100%;
     height: auto;
     border-radius: 10px;
     border: 1px solid var(--border2);
-    margin: 24px 0 32px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.5);
     display: block;
+    image-rendering: auto;
+    transition: opacity 0.2s ease;
   }
+  .screenshot-wrap:hover .screenshot { opacity: 0.95; }
 
   img { max-width: 100%; height: auto; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    cursor: zoom-out;
+  }
+  .lightbox.visible { display: flex; }
+  .lightbox img {
+    max-width: 95vw;
+    max-height: 95vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    cursor: default;
+    image-rendering: auto;
+  }
 
   /* ── TABLE ── */
   table {
@@ -506,6 +556,9 @@
 </style>
 </head>
 <body>
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <img src="" alt="" id="lightbox-img" onclick="event.stopPropagation()">
+  </div>
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
@@ -1021,6 +1074,35 @@
       document.getElementById('overlay').classList.remove('visible');
     }
   }
+
+  // Lightbox para screenshots
+  function openLightbox(img) {
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    lbImg.src = img.src;
+    lbImg.alt = img.alt || 'Ampliar imagen';
+    lb.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(e) {
+    if (e.target.id === 'lightbox' || e.target.id === 'lightbox-img') {
+      document.getElementById('lightbox').classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('lightbox').classList.contains('visible')) {
+      document.getElementById('lightbox').classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+  });
+  document.querySelectorAll('img.screenshot').forEach(img => {
+    const wrap = document.createElement('div');
+    wrap.className = 'screenshot-wrap';
+    wrap.onclick = () => openLightbox(img);
+    img.parentNode.insertBefore(wrap, img);
+    wrap.appendChild(img);
+  });
 </script>
 </body>
 </html>
