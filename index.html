@@ -69,7 +69,7 @@
   }
 
   .sidebar-logo img {
-    height: 56px;
+    height: 16px;
     width: auto;
     object-fit: contain;
   }
@@ -137,7 +137,7 @@
   }
 
   .header-logo img {
-    height: 48px;
+    height: 25px;
     width: auto;
     object-fit: contain;
   }
@@ -227,9 +227,16 @@
     background: var(--fp-bg-alt);
   }
 
+  .doc-image a {
+    display: block;
+    cursor: pointer;
+    outline: none;
+  }
+  .doc-image a:hover img { opacity: 0.95; }
   .doc-image img {
     width: 100%;
     display: block;
+    transition: opacity 0.2s;
   }
 
   .doc-image-placeholder {
@@ -418,7 +425,7 @@
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <a href="#">
-      <img src="assets/ISOLOGO-BLANCO-COLOR-01-01.png" alt="FlashPass">
+      <img src="assets/fp-logo.svg" alt="FlashPass">
     </a>
   </div>
 
@@ -467,12 +474,10 @@
   <div class="header-left">
     <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Menú">☰</button>
     <a href="#" class="header-logo">
-      <img src="assets/ISOLOGO-BLANCO-COLOR-01-01.png" alt="FlashPass">
+      <img src="assets/fp-logo.svg" alt="FlashPass">
     </a>
   </div>
   <div class="header-links">
-    <a href="#">Guía</a>
-    <a href="https://studio.flashpass.com.ar" target="_blank">Ir al Studio</a>
     <a href="https://studio.flashpass.com.ar" target="_blank" class="header-cta">Empezar gratis →</a>
   </div>
 </header>
@@ -502,7 +507,9 @@
       </ul>
 
       <div class="doc-image">
-        <img src="assets/paso-03-dashboard.png" alt="Dashboard principal de FlashPass Studio">
+        <a href="assets/paso-03-dashboard.png" target="_blank" rel="noopener">
+          <img src="assets/paso-03-dashboard.png" alt="Dashboard principal de FlashPass Studio">
+        </a>
         <div class="doc-image-caption">Dashboard principal — listado de tus eventos con estado y facturación</div>
       </div>
     </section>
@@ -510,51 +517,66 @@
     <!-- CREAR TU PRODUCTORA -->
     <section id="productora">
       <h1>Crear tu productora</h1>
-      <p>Configurá tu productora una sola vez. Es el primer paso antes de publicar eventos. El proceso tiene 3 pasos guiados que podés completar en menos de 5 minutos.</p>
+      <p>Configurá tu productora una sola vez. Es el primer paso antes de publicar eventos. El proceso tiene 5 pasos guiados que podés completar en menos de 5 minutos.</p>
 
       <h2>Paso 1 — Accedé o creá tu cuenta</h2>
       <p>Entrá a <a href="https://studio.flashpass.com.ar/login" target="_blank">studio.flashpass.com.ar</a> con tu cuenta de Google, Apple o email. Si es la primera vez, hacé clic en <strong>Registrate gratis</strong>.</p>
 
       <div class="doc-image">
-        <img src="assets/paso-01-login.png" alt="Pantalla de inicio de sesión de FlashPass Studio">
+        <a href="assets/crear-productora.png" target="_blank" rel="noopener">
+          <img src="assets/crear-productora.png" alt="Pantalla de inicio de sesión de FlashPass Studio">
+        </a>
         <div class="doc-image-caption">Pantalla de inicio de sesión — accedé con Google, Apple o email</div>
       </div>
 
-      <div class="doc-image">
-        <img src="assets/paso-02-registro.png" alt="Pantalla de registro de nueva cuenta">
-        <div class="doc-image-caption">Crear cuenta nueva — completá nombre, email y contraseña</div>
-      </div>
-
-      <h2>Paso 2 — Ir a "Mis Productoras"</h2>
-      <p>Una vez dentro del Studio, hacé clic en el ícono de tu perfil en el extremo inferior izquierdo y seleccioná <strong>Mis Productoras</strong>. Luego hacé clic en <strong>+ Nueva Productora</strong>.</p>
+      <h2>Paso 2 — Elegí "Creá tu marca"</h2>
+      <p>Al ingresar por primera vez, verás la pantalla de bienvenida. Seleccioná <strong>Creá tu marca</strong> para registrarte como productor y comenzar a crear tu productora.</p>
 
       <div class="doc-image">
-        <img src="assets/paso-04-mis-productoras.png" alt="Pantalla de Mis Productoras">
-        <div class="doc-image-caption">Mis Productoras — podés tener múltiples productoras y cambiar entre ellas</div>
+        <a href="assets/crear-productora-paso-02.png" target="_blank" rel="noopener">
+          <img src="assets/crear-productora-paso-02.png" alt="Bienvenido a FlashPass Studio — Elegí Creá tu marca">
+        </a>
+        <div class="doc-image-caption">Bienvenido a FlashPass Studio — elegí "Creá tu marca" para productores</div>
       </div>
 
       <h2>Paso 3 — Perfil (Información pública)</h2>
-      <p>Completá el <strong>Nombre de fantasía</strong> de tu marca — este es el nombre que verán tus compradores. Podés agregar descripción, email de contacto, WhatsApp, Instagram y Facebook.</p>
+      <p>Al elegir "Creá tu marca" accedés directamente al formulario. Completá el <strong>Nombre de fantasía</strong> de tu marca — este es el nombre que verán tus compradores. Podés agregar descripción, email de contacto, WhatsApp, Instagram y Facebook.</p>
 
       <div class="doc-image">
-        <img src="assets/paso-05-nueva-productora-perfil.png" alt="Paso 1: Perfil de la productora">
-        <div class="doc-image-caption">Paso 1 — Perfil: nombre de tu marca y datos de contacto públicos</div>
+        <a href="assets/crear-productora-paso-03.png" target="_blank" rel="noopener">
+          <img src="assets/crear-productora-paso-03.png" alt="Paso 3: Perfil — Información pública de la productora">
+        </a>
+        <div class="doc-image-caption">Paso 3 — Perfil: nombre de fantasía, descripción y datos de contacto públicos</div>
       </div>
 
       <h2>Paso 4 — Cuenta (Datos fiscales)</h2>
       <p>Ingresá la <strong>Razón Social</strong>, <strong>CUIT</strong>, email administrativo y teléfono. Prestá atención: el CUIT solo puede modificarse contactando a soporte.</p>
 
       <div class="doc-image">
-        <img src="assets/paso-06-nueva-productora-cuenta.png" alt="Paso 2: Datos fiscales de la productora">
-        <div class="doc-image-caption">Paso 2 — Cuenta: datos fiscales. Verificá el CUIT antes de continuar</div>
+        <a href="assets/crear-productora-paso-04.png" target="_blank" rel="noopener">
+          <img src="assets/crear-productora-paso-04.png" alt="Paso 4: Cuenta — Datos fiscales de la productora">
+        </a>
+        <div class="doc-image-caption">Paso 4 — Cuenta: Razón Social, CUIT, email administrativo. Verificá el CUIT antes de continuar</div>
       </div>
 
       <h2>Paso 5 — Banco (Opcional)</h2>
       <p>Agregá tu CBU para recibir pagos automáticos semanales sin comisiones. También podés saltear este paso y configurarlo después desde <em>Configuración</em>.</p>
 
       <div class="doc-image">
-        <img src="assets/paso-07-nueva-productora-banco.png" alt="Paso 3: Datos bancarios opcionales">
-        <div class="doc-image-caption">Paso 3 — Banco: datos bancarios opcionales para cobros automáticos</div>
+        <a href="assets/crear-productora-paso-05.png" target="_blank" rel="noopener">
+          <img src="assets/crear-productora-paso-05.png" alt="Paso 5: Banco — Información bancaria opcional">
+        </a>
+        <div class="doc-image-caption">Paso 5 — Banco: tipo de cuenta, banco y CBU. Opcional — podés agregarlo después desde Configuración</div>
+      </div>
+
+      <h2>¡Listo! Tu productora creada</h2>
+      <p>Al completar el registro, vas a <strong>Mis Productoras</strong> donde verás tu productora creada y seleccionada. Desde acá podés crear más productoras con el botón <strong>+ Nueva Productora</strong>, cambiar entre ellas, acceder a Configuración, ver el perfil público o archivar las que ya no uses.</p>
+
+      <div class="doc-image">
+        <a href="assets/crear-productora-mis-productoras.png" target="_blank" rel="noopener">
+          <img src="assets/crear-productora-mis-productoras.png" alt="Mis Productoras — Productora creada y seleccionada">
+        </a>
+        <div class="doc-image-caption">Mis Productoras — tu productora creada. Creá más productoras y gestioná todas desde acá</div>
       </div>
 
       <div class="doc-note">
@@ -565,28 +587,78 @@
     <!-- CREAR TU PRIMER EVENTO -->
     <section id="primer-evento">
       <h1>Crear tu primer evento</h1>
-      <p>Una vez creada tu productora, publicá tu primer evento en menos de 5 minutos.</p>
+      <p>Una vez creada tu productora, andá a <strong>Eventos</strong> y seguí estos pasos en orden. El flujo incluye crear tus tickets antes de publicar.</p>
 
-      <div class="doc-steps">
-        <div class="doc-step">
-          <div class="doc-step-num">1</div>
-          <div>
-            <h4>Creá tu evento</h4>
-            <p>Nombre, fecha, lugar, imagen de portada y banner. Configurás los tickets y publicás.</p>
-          </div>
-        </div>
-        <div class="doc-step">
-          <div class="doc-step-num">2</div>
-          <div>
-            <h4>Publicá y vendé</h4>
-            <p>El evento entra en revisión (menos de 24hs) y en cuanto se aprueba, aparece en la app y podés compartir el link.</p>
-          </div>
-        </div>
+      <h2>Paso 1 — Ir a Eventos</h2>
+      <p>Andá a <strong>Eventos</strong> en el menú y hacé clic en <strong>+ Crear Evento</strong>. Si no tenés eventos, verás el mensaje para crear uno nuevo.</p>
+      <div class="doc-image">
+        <a href="assets/evento-01-dashboard.png" target="_blank" rel="noopener">
+          <img src="assets/evento-01-dashboard.png" alt="Panel de Eventos — Botón + Crear Evento">
+        </a>
+        <div class="doc-image-caption">Paso 1 — Eventos: hacé clic en + Crear Evento para comenzar</div>
       </div>
 
+      <h2>Paso 2 — Información</h2>
+      <p>Completá el nombre del evento, descripción, fecha y hora. Subí la imagen principal (720×1280px) y el banner (390×150px). Opcional: Meta Pixel y cortesías individuales.</p>
       <div class="doc-image">
-        <img src="assets/paso-03-dashboard.png" alt="Dashboard de Eventos en FlashPass Studio">
-        <div class="doc-image-caption">Panel de Eventos — desde acá creás y gestionás todos tus eventos</div>
+        <a href="assets/evento-02-informacion.png" target="_blank" rel="noopener">
+          <img src="assets/evento-02-informacion.png" alt="Formulario Información del evento">
+        </a>
+        <div class="doc-image-caption">Paso 2 — Información: nombre, descripción, fecha, imágenes</div>
+      </div>
+
+      <h2>Paso 3 — Ubicación</h2>
+      <p>Elegí un establecimiento existente o creá uno nuevo. La ubicación permite que los asistentes encuentren el evento. Podés subir una planimetría opcional.</p>
+      <div class="doc-image">
+        <a href="assets/evento-03-ubicacion.png" target="_blank" rel="noopener">
+          <img src="assets/evento-03-ubicacion.png" alt="Ubicación del evento — Seleccionar establecimiento">
+        </a>
+        <div class="doc-image-caption">Paso 3 — Ubicación: elegí o creá un establecimiento</div>
+      </div>
+
+      <h2>Paso 4 — Crear tickets (dentro del evento)</h2>
+      <p>En la pestaña <strong>Tickets</strong>, si no tenés ninguno, hacé clic en <strong>+ Crear primer ticket</strong>. Los tickets son obligatorios para poder publicar.</p>
+      <div class="doc-image">
+        <a href="assets/evento-04-tickets-vacio.png" target="_blank" rel="noopener">
+          <img src="assets/evento-04-tickets-vacio.png" alt="Tickets vacío — Crear primer ticket">
+        </a>
+        <div class="doc-image-caption">Paso 4 — Tickets: creá tu primer ticket para empezar a vender</div>
+      </div>
+
+      <h2>Paso 5 — Formulario del ticket</h2>
+      <p>Completá nombre, precio, cupo, canal de venta (Online/Presencial), fechas de venta y opciones como activación condicional o género. Guardá con <strong>Crear Ticket</strong>.</p>
+      <div class="doc-image">
+        <a href="assets/evento-05-formulario-ticket.png" target="_blank" rel="noopener">
+          <img src="assets/evento-05-formulario-ticket.png" alt="Formulario Nuevo Ticket">
+        </a>
+        <div class="doc-image-caption">Paso 5 — Crear ticket: nombre, precio, cupo, fechas y opciones</div>
+      </div>
+
+      <h2>Paso 6 — Ticket creado</h2>
+      <p>Una vez creado, el ticket aparece en la lista. Podés editar, duplicar o marcar como agotado. Creá más categorías con <strong>+ Crear categoría</strong> o pasá a publicar.</p>
+      <div class="doc-image">
+        <a href="assets/evento-06-ticket-creado.png" target="_blank" rel="noopener">
+          <img src="assets/evento-06-ticket-creado.png" alt="Ticket creado en la lista">
+        </a>
+        <div class="doc-image-caption">Paso 6 — Ticket creado: podés agregar más o continuar a publicar</div>
+      </div>
+
+      <h2>Paso 7 — Publicar</h2>
+      <p>En la pestaña <strong>Publicar</strong> definí la visibilidad (Público o Privado), activá FlashTrade para reventa si querés, aceptá los términos y hacé clic en <strong>Publicar Evento</strong>.</p>
+      <div class="doc-image">
+        <a href="assets/evento-07-publicar.png" target="_blank" rel="noopener">
+          <img src="assets/evento-07-publicar.png" alt="Publicar evento — Visibilidad y términos">
+        </a>
+        <div class="doc-image-caption">Paso 7 — Publicar: visibilidad, FlashTrade y términos</div>
+      </div>
+
+      <h2>Paso 8 — ¡Evento publicado!</h2>
+      <p>El evento entra en revisión (menos de 24hs). Una vez aprobado, aparece en la app y podés compartir el link. Verás la notificación de éxito.</p>
+      <div class="doc-image">
+        <a href="assets/evento-08-publicado.png" target="_blank" rel="noopener">
+          <img src="assets/evento-08-publicado.png" alt="Evento publicado con éxito">
+        </a>
+        <div class="doc-image-caption">Paso 8 — Evento publicado o en revisión</div>
       </div>
     </section>
 
@@ -643,7 +715,9 @@
         <li>Filtros por período y por evento específico</li>
       </ul>
       <div class="doc-image">
-        <img src="assets/Analitycs.jpeg" alt="Dashboard de Analytics">
+        <a href="assets/Analitycs.jpeg" target="_blank" rel="noopener">
+          <img src="assets/Analitycs.jpeg" alt="Dashboard de Analytics">
+        </a>
         <div class="doc-image-caption">Dashboard de Analytics</div>
       </div>
     </section>
