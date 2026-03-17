@@ -6,7 +6,7 @@
 <title>FlashPass Studio â€” GuÃ­a</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js" defer></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1298,7 +1298,10 @@
     if (el) el.classList.add('active');
     document.getElementById('breadcrumb-title').textContent = titles[id] || id;
     window.scrollTo(0, 0);
-    if (id === 'analytics') restartChartAnimation();
+    if (id === 'analytics') {
+      restartChartAnimation();
+      if (typeof lucide !== 'undefined') lucide.createIcons({ root: document.getElementById('page-analytics') });
+    }
     // Close sidebar on mobile after navigation
     if (window.innerWidth <= 768) {
       document.querySelector('.sidebar').classList.remove('open');
@@ -1344,7 +1347,12 @@
     });
   }
 
-  if (typeof lucide !== 'undefined') lucide.createIcons();
+</script>
+<script>
+  (function initIcons() {
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    else setTimeout(initIcons, 50);
+  })();
 </script>
 </body>
 </html>
