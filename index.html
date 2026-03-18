@@ -109,6 +109,23 @@
     background: rgba(139, 92, 246, 0.15);
   }
 
+  .sidebar-nav-sub {
+    padding-left: 16px;
+    border-left: 2px solid var(--fp-border);
+    margin-left: 24px;
+    margin-bottom: 8px;
+  }
+
+  .sidebar-nav-sub a {
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--fp-text-muted);
+  }
+
+  .sidebar-nav-sub a:hover {
+    color: var(--fp-violet);
+  }
+
   /* ── HEADER ── */
   .header {
     position: fixed;
@@ -452,7 +469,34 @@
     <div class="sidebar-section-title">Equipo</div>
     <div class="sidebar-nav">
       <a href="#colaboradores">Colaboradores</a>
+      <a href="#agregar-colaboradores">Agregar colaboradores</a>
+      <a href="#equipos-venta">Equipos de Venta</a>
       <a href="#roles">Roles</a>
+    </div>
+  </nav>
+
+  <nav class="sidebar-section">
+    <div class="sidebar-section-title">Establecimientos</div>
+    <div class="sidebar-nav">
+      <a href="#establecimientos">Introducción</a>
+      <a href="#est-informacion">Información</a>
+      <a href="#est-eventos">Eventos</a>
+      <div class="sidebar-nav-sub">
+        <a href="#est-mapa-mesas-eventos">Mapa de Mesas</a>
+        <a href="#est-saldos">Saldos</a>
+        <a href="#est-cajas-eventos">Cajas</a>
+      </div>
+      <a href="#est-empleados">Empleados</a>
+      <a href="#est-mesas">Mesas</a>
+      <a href="#est-cajas">Cajas</a>
+      <a href="#est-estaciones">Estaciones de Preparación</a>
+      <a href="#est-componentes">Componentes</a>
+      <a href="#est-cartas">Cartas</a>
+      <a href="#est-ordenes">Órdenes</a>
+      <a href="#est-monedas">Monedas</a>
+      <a href="#est-inventario">Inventario</a>
+      <a href="#est-almacenes">Almacenes</a>
+      <a href="#est-mercadopago">MercadoPago</a>
     </div>
   </nav>
 
@@ -460,10 +504,11 @@
     <div class="sidebar-section-title">Más</div>
     <div class="sidebar-nav">
       <a href="#crm">CRM</a>
-      <a href="#establecimientos">Establecimientos</a>
+      <a href="#email-marketing">Email Marketing</a>
       <a href="#flashpos">FlashPOS</a>
       <a href="#flashpay">FlashPay</a>
       <a href="#cobros">Cobros</a>
+      <a href="#devoluciones">Devoluciones</a>
       <a href="#faq">Preguntas frecuentes</a>
     </div>
   </nav>
@@ -502,6 +547,7 @@
         <li>📊 <strong>Analytics en tiempo real:</strong> Métricas de facturación, tickets vendidos, visitas y conversión.</li>
         <li>👥 <strong>Gestionar tu equipo:</strong> RRPP, vendedores, supervisores y validadores con roles diferenciados.</li>
         <li>💎 <strong>CRM de clientes:</strong> Ranking de tus mejores clientes con historial completo de compras.</li>
+        <li>📧 <strong>Email Marketing:</strong> Grupos de audiencia por eventos/tickets y campañas personalizadas.</li>
         <li>🍹 <strong>FlashPOS:</strong> Punto de venta para consumiciones dentro del evento.</li>
         <li>⚡ <strong>FlashPay:</strong> Billetera digital para eliminar filas en la barra.</li>
       </ul>
@@ -744,11 +790,152 @@
       <ul>
         <li>Roles a nivel Productora: Administrador y Analista (solo lectura)</li>
         <li>Roles por Evento: Admin, Artista, Supervisor, Validador, Vendedor</li>
-        <li>Equipos de Venta reutilizables entre eventos</li>
+        <li><a href="#equipos-venta">Equipos de Venta</a> reutilizables entre eventos</li>
         <li>Invitación por email — el rol se asigna cuando el usuario se registra</li>
       </ul>
       <div class="doc-image">
-        <div class="doc-image-placeholder">[Imagen: Gestión de colaboradores]</div>
+        <a href="assets/colaboradores.png" target="_blank" rel="noopener">
+          <img src="assets/colaboradores.png" alt="Gestión de colaboradores — roles y permisos del equipo">
+        </a>
+        <div class="doc-image-caption">Colaboradores — asigná roles, gestioná invitaciones y equipos de venta</div>
+      </div>
+    </section>
+
+    <!-- AGREGAR COLABORADORES -->
+    <section id="agregar-colaboradores">
+      <h1>Agregar colaboradores</h1>
+      <p>Asigná un rol directamente a cada integrante usando su email. Si el usuario no tiene cuenta en FlashPass, recibirá el rol cuando se registre.</p>
+
+      <h2>Paso 1 — Abrí el formulario</h2>
+      <p>Desde la sección <strong>Colaboradores</strong>, hacé clic en el botón <strong>+ Agregar Colaborador</strong>. Se abrirá un modal con el formulario.</p>
+
+      <h2>Paso 2 — Información básica</h2>
+      <p>Completá los datos del colaborador:</p>
+      <ul>
+        <li><strong>Email del colaborador:</strong> La dirección de correo con la que se registra o se registrará en FlashPass. Si no tiene cuenta, recibirá el rol cuando se registre.</li>
+        <li><strong>Alias (opcional):</strong> Un nombre visible para identificar al colaborador. Si no lo especificás, se mostrará el @username del colaborador.</li>
+      </ul>
+      <div class="doc-image">
+        <a href="assets/agregar-colaborador-01.png" target="_blank" rel="noopener">
+          <img src="assets/agregar-colaborador-01.png" alt="Modal Agregar Colaborador — Información básica">
+        </a>
+        <div class="doc-image-caption">Formulario Agregar Colaborador — email, alias y configuración de acceso</div>
+      </div>
+
+      <h2>Paso 3 — Configuración de acceso</h2>
+      <p>Definí el tipo de recurso y el rol que tendrá el colaborador:</p>
+      <ul>
+        <li><strong>Tipo de recurso:</strong> Elegí entre <strong>Productor</strong> (a nivel de productora) o <strong>Evento</strong> (para un evento específico).</li>
+        <li><strong>Recurso:</strong> Seleccioná la productora o el evento al que aplica el acceso.</li>
+        <li><strong>Rol:</strong> Elegí el rol según el tipo de recurso seleccionado.</li>
+      </ul>
+
+      <h3>Roles a nivel Productora</h3>
+      <p>Cuando el tipo de recurso es <strong>Productor</strong>, podés asignar:</p>
+      <ul>
+        <li><strong>Administrador de la Productora:</strong> Acceso administrativo para gestionar los recursos de la productora.</li>
+        <li><strong>Analista de la Productora:</strong> Acceso de solo lectura a datos financieros y de marketing.</li>
+      </ul>
+      <div class="doc-image">
+        <a href="assets/agregar-colaborador-02.png" target="_blank" rel="noopener">
+          <img src="assets/agregar-colaborador-02.png" alt="Roles a nivel Productora — Administrador y Analista">
+        </a>
+        <div class="doc-image-caption">Roles de Productora — Administrador y Analista con sus descripciones</div>
+      </div>
+
+      <h3>Roles a nivel Evento</h3>
+      <p>Cuando el tipo de recurso es <strong>Evento</strong>, podés asignar:</p>
+      <ul>
+        <li><strong>Administrador del Evento:</strong> Configurar ventas, promociones, cortesías y personal para un evento.</li>
+        <li><strong>Artista:</strong> Artista asociado al evento.</li>
+        <li><strong>Supervisor del Evento:</strong> Monitorear KPIs en vivo y supervisar las operaciones del evento.</li>
+        <li><strong>Validador de Entradas:</strong> Escanear y validar credenciales de acceso en puerta.</li>
+        <li><strong>Vendedor del Evento:</strong> Vender entradas para un evento.</li>
+      </ul>
+      <div class="doc-image">
+        <a href="assets/agregar-colaborador-03.png" target="_blank" rel="noopener">
+          <img src="assets/agregar-colaborador-03.png" alt="Roles a nivel Evento — Admin, Artista, Supervisor, Validador, Vendedor">
+        </a>
+        <div class="doc-image-caption">Roles de Evento — cada rol con su descripción y alcance</div>
+      </div>
+
+      <h2>Paso 4 — Confirmar</h2>
+      <p>Hacé clic en <strong>Agregar Colaborador</strong>. Verás un mensaje de confirmación y el nuevo colaborador aparecerá en la lista con su rol asignado.</p>
+      <div class="doc-image">
+        <a href="assets/agregar-colaborador-04.png" target="_blank" rel="noopener">
+          <img src="assets/agregar-colaborador-04.png" alt="Colaborador agregado — confirmación y lista actualizada">
+        </a>
+        <div class="doc-image-caption">Colaborador agregado — el rol se asigna al email indicado y aparece en la lista</div>
+      </div>
+    </section>
+
+    <!-- EQUIPOS DE VENTA -->
+    <section id="equipos-venta">
+      <h1>Equipos de Venta</h1>
+      <p>Los equipos de venta te permiten agrupar vendedores y reutilizarlos en múltiples eventos. Creá un equipo, agregá miembros y asignalo a los eventos que necesites.</p>
+
+      <h2>Paso 1 — Accedé a Equipos de Venta</h2>
+      <p>Desde el menú lateral, entrá a <strong>Colaboradores</strong> y luego a <strong>Equipos</strong>. Verás la lista de equipos existentes y el botón <strong>+ Crear Equipo</strong>.</p>
+      <div class="doc-image">
+        <a href="assets/equipos-venta-01.png" target="_blank" rel="noopener">
+          <img src="assets/equipos-venta-01.png" alt="Equipos de Venta — Lista de equipos">
+        </a>
+        <div class="doc-image-caption">Equipos de Venta — gestioná equipos comerciales desde Colaboradores > Equipos</div>
+      </div>
+
+      <h2>Paso 2 — Crear el equipo</h2>
+      <p>Hacé clic en <strong>+ Crear Equipo</strong>. En el modal completá:</p>
+      <ul>
+        <li><strong>Nombre del equipo *:</strong> Un nombre identificatorio (ej: "Vendedores Evento Viernes").</li>
+        <li><strong>Descripción:</strong> Opcional. Describe el propósito del equipo para que tu equipo lo identifique fácilmente.</li>
+      </ul>
+      <p>Hacé clic en <strong>Crear Equipo</strong> para confirmar.</p>
+      <div class="doc-image">
+        <a href="assets/equipos-venta-02.png" target="_blank" rel="noopener">
+          <img src="assets/equipos-venta-02.png" alt="Modal Crear Nuevo Equipo">
+        </a>
+        <div class="doc-image-caption">Crear Nuevo Equipo — nombre y descripción</div>
+      </div>
+
+      <h2>Paso 3 — Gestionar miembros</h2>
+      <p>Una vez creado el equipo, aparecerá en la lista con sus estadísticas (miembros y eventos). Hacé clic en el menú de acciones (<strong>⋯</strong>) y elegí <strong>Gestionar miembros</strong>.</p>
+      <div class="doc-image">
+        <a href="assets/equipos-venta-03.png" target="_blank" rel="noopener">
+          <img src="assets/equipos-venta-03.png" alt="Lista de equipos — menú de acciones">
+        </a>
+        <div class="doc-image-caption">Menú de acciones — Editar equipo, Gestionar miembros, Eliminar equipo</div>
+      </div>
+
+      <h2>Paso 4 — Agregar miembros al equipo</h2>
+      <p>En la pantalla del equipo, dentro de la pestaña <strong>Miembros</strong>, hacé clic en <strong>+ Agregar Miembros</strong>. Tenés dos opciones:</p>
+      <ul>
+        <li><strong>Agregar manualmente:</strong> Ingresá alias y email de cada miembro uno por uno. Podés usar <strong>+ Agregar otro miembro</strong> para sumar más.</li>
+        <li><strong>Importar Excel:</strong> Subí un archivo Excel con alias y emails para cargar varios miembros a la vez.</li>
+      </ul>
+      <p>Completá los datos y hacé clic en <strong>Agregar Miembro</strong>.</p>
+      <div class="doc-image">
+        <a href="assets/equipos-venta-04.png" target="_blank" rel="noopener">
+          <img src="assets/equipos-venta-04.png" alt="Modal Agregar Miembros al Equipo">
+        </a>
+        <div class="doc-image-caption">Agregar Miembros — manualmente o por Excel</div>
+      </div>
+
+      <h2>Paso 5 — Asignar el equipo a un evento</h2>
+      <p>En la pestaña <strong>Eventos</strong> del equipo, hacé clic en <strong>+ Asignar a evento</strong>. En el modal:</p>
+      <ul>
+        <li><strong>Evento:</strong> Seleccioná el evento al que querés asignar el equipo.</li>
+        <li><strong>Límite de Cortesías:</strong> Cantidad máxima de cortesías que el equipo puede otorgar en total (ej: 500).</li>
+        <li><strong>Límite de Efectivo:</strong> Monto máximo en efectivo que el equipo puede manejar (ej: 250.000).</li>
+      </ul>
+      <div class="doc-note">
+        Los límites se aplican a todos los miembros del equipo. Podés ajustarlos individualmente más tarde desde la configuración del evento.
+      </div>
+      <p>Hacé clic en <strong>Asignar Equipo</strong> para confirmar.</p>
+      <div class="doc-image">
+        <a href="assets/equipos-venta-05.png" target="_blank" rel="noopener">
+          <img src="assets/equipos-venta-05.png" alt="Modal Asignar Equipo a Evento">
+        </a>
+        <div class="doc-image-caption">Asignar Equipo a Evento — evento, límite de cortesías y límite de efectivo</div>
       </div>
     </section>
 
@@ -768,31 +955,408 @@
 
     <!-- CRM -->
     <section id="crm">
-      <h1>CRM</h1>
-      <p>El CRM de FlashPass te permite construir una base de clientes real. Identificá quiénes son tus clientes más valiosos.</p>
+      <h1>CRM - Gestión de Clientes</h1>
+      <p>Analizá y gestioná la información de tus clientes en el período que selecciones. El CRM te permite identificar quiénes son tus clientes más valiosos y planificar campañas de marketing.</p>
+
+      <h2>Ranking de Clientes</h2>
+      <p>En la pestaña <strong>Ranking</strong> analizás el comportamiento de tus clientes en el período seleccionado. La columna <strong>Facturación</strong> muestra el monto total sin cortesías.</p>
       <ul>
-        <li>Ranking de clientes por facturación total</li>
-        <li>Historial completo de compras por cliente</li>
-        <li>Gasto promedio por evento</li>
-        <li>Segmentación para preventas exclusivas</li>
+        <li><strong>Facturación:</strong> Monto total gastado por el cliente en el período</li>
+        <li><strong>Órdenes:</strong> Cantidad de pedidos realizados</li>
+        <li><strong>Promedio por Evento:</strong> Gasto promedio en cada evento</li>
+        <li><strong>Eventos:</strong> Cantidad de eventos en los que compró</li>
       </ul>
+      <p>Podés ordenar por facturación (ascendente o descendente), buscar por nombre o email, exportar todo a Excel y personalizar las columnas visibles.</p>
       <div class="doc-image">
-        <div class="doc-image-placeholder">[Imagen: Dashboard de CRM]</div>
+        <a href="assets/crm-ranking.png" target="_blank" rel="noopener">
+          <img src="assets/crm-ranking.png" alt="CRM — Ranking de clientes por facturación">
+        </a>
+        <div class="doc-image-caption">Ranking — ordená por facturación, período y exportá a Excel</div>
+      </div>
+
+      <h2>Cumpleaños</h2>
+      <p>La pestaña <strong>Cumpleaños</strong> te permite gestionar y celebrar los cumpleaños de tus clientes. La columna <strong>Actividad</strong> muestra la facturación en el período seleccionado para clientes activos, o el total histórico para clientes inactivos. Usá los filtros para planificar campañas con anticipación.</p>
+      <ul>
+        <li><strong>Hoy / Esta Semana / Este Mes:</strong> Resumen de cumpleaños en cada período</li>
+        <li><strong>Próximo Cumpleaños:</strong> Fecha, días restantes y edad del cliente</li>
+        <li><strong>Actividad:</strong> Facturación y cantidad de pedidos</li>
+        <li><strong>Última Compra:</strong> Fecha y antigüedad</li>
+      </ul>
+      <p>Ordená por días hasta cumpleaños, filtrá por período (todo el año o rangos específicos) y exportá la lista para tus campañas.</p>
+      <div class="doc-image">
+        <a href="assets/crm-cumpleanos.png" target="_blank" rel="noopener">
+          <img src="assets/crm-cumpleanos.png" alt="CRM — Campañas de Cumpleaños">
+        </a>
+        <div class="doc-image-caption">Cumpleaños — planificá campañas con anticipación según la actividad de cada cliente</div>
+      </div>
+    </section>
+
+    <!-- EMAIL MARKETING -->
+    <section id="email-marketing">
+      <h1>Email Marketing</h1>
+      <p>Gestioná tus grupos de audiencia y campañas de email. Segmentá compradores por eventos y tickets, creá campañas personalizadas y hacé seguimiento del uso mensual.</p>
+
+      <h2>Grupos de Audiencia</h2>
+      <p>Creá grupos basados en compradores de eventos y tickets específicos. Cada grupo muestra la cantidad de miembros, su estado (Activo) y fecha de creación. Podés ver, editar o eliminar grupos desde el menú de acciones.</p>
+      <div class="doc-image">
+        <a href="assets/email-marketing-grupos.png" target="_blank" rel="noopener">
+          <img src="assets/email-marketing-grupos.png" alt="Email Marketing — Grupos de Audiencia">
+        </a>
+        <div class="doc-image-caption">Grupos — listado con miembros, estado y acciones</div>
+      </div>
+
+      <h3>Crear un grupo (paso a paso)</h3>
+      <p>Hacé clic en <strong>+ Crear Grupo</strong>. El proceso tiene 3 pasos:</p>
+
+      <p><strong>Paso 1 — Eventos:</strong> Seleccioná los eventos cuyos compradores formarán parte del grupo. Buscá eventos por nombre y marcá los que quieras incluir.</p>
+      <div class="doc-image">
+        <a href="assets/email-marketing-crear-grupo-01.png" target="_blank" rel="noopener">
+          <img src="assets/email-marketing-crear-grupo-01.png" alt="Crear grupo — Paso 1: Seleccionar eventos">
+        </a>
+        <div class="doc-image-caption">Paso 1 — Eventos: elegí cuyos compradores formarán el grupo</div>
+      </div>
+
+      <p><strong>Paso 2 — Tickets:</strong> Elegí qué tickets de cada evento incluir en el grupo. Podés seleccionar o deseleccionar todos los tickets de un evento. Cada ticket muestra la cantidad de emails asociados.</p>
+      <div class="doc-image">
+        <a href="assets/email-marketing-crear-grupo-02.png" target="_blank" rel="noopener">
+          <img src="assets/email-marketing-crear-grupo-02.png" alt="Crear grupo — Paso 2: Elegir tickets">
+        </a>
+        <div class="doc-image-caption">Paso 2 — Tickets: elegí qué tipos de ticket incluir</div>
+      </div>
+
+      <p><strong>Paso 3 — Detalles:</strong> Completá el nombre del grupo (obligatorio) y una descripción opcional. El resumen muestra cuántos eventos, tickets y miembros tendrá el grupo. Hacé clic en <strong>Crear Grupo</strong> para finalizar.</p>
+      <div class="doc-image">
+        <a href="assets/email-marketing-crear-grupo-03.png" target="_blank" rel="noopener">
+          <img src="assets/email-marketing-crear-grupo-03.png" alt="Crear grupo — Paso 3: Detalles y resumen">
+        </a>
+        <div class="doc-image-caption">Paso 3 — Detalles: nombre, descripción y resumen del grupo</div>
+      </div>
+
+      <h2>Campañas de Email</h2>
+      <p>Creá y gestioná tus campañas de email marketing. Desde la pestaña <strong>Campañas</strong> verás el listado con nombre, descripción, estado (Borrador, Enviada, etc.), destinatarios, métricas y fecha de creación. Podés editar, duplicar o eliminar campañas.</p>
+      <div class="doc-image">
+        <a href="assets/email-marketing-campanas.png" target="_blank" rel="noopener">
+          <img src="assets/email-marketing-campanas.png" alt="Email Marketing — Campañas de Email">
+        </a>
+        <div class="doc-image-caption">Campañas — listado con estado, destinatarios y métricas</div>
+      </div>
+
+      <h3>Crear una campaña</h3>
+      <p>Hacé clic en <strong>+ Nueva Campaña</strong>. Completá:</p>
+      <ul>
+        <li><strong>Nombre de la Campaña *:</strong> Nombre interno para identificar la campaña</li>
+        <li><strong>Nombre del Remitente:</strong> El nombre que verán los destinatarios en su bandeja</li>
+        <li><strong>Asunto del Email *:</strong> El asunto que verán los destinatarios</li>
+        <li><strong>Grupo de Audiencia:</strong> Seleccioná el grupo al que quieras enviar (opcional)</li>
+      </ul>
+      <p>Podés editar el contenido después de crearla.</p>
+      <div class="doc-image">
+        <a href="assets/email-marketing-nueva-campana.png" target="_blank" rel="noopener">
+          <img src="assets/email-marketing-nueva-campana.png" alt="Modal Nueva Campaña — datos básicos">
+        </a>
+        <div class="doc-image-caption">Nueva Campaña — nombre, remitente, asunto y grupo de audiencia</div>
+      </div>
+
+      <h3>Editar contenido del email</h3>
+      <p>Cuando edites una campaña, accedés al editor con dos columnas:</p>
+      <ul>
+        <li><strong>Contenido:</strong> Título, cuerpo del email e imagen del header (JPG, JPEG, PNG hasta 3MB)</li>
+        <li><strong>Vista Previa:</strong> Vista previa en tiempo real de cómo se verá el email en móvil</li>
+      </ul>
+      <p>Podés guardar, descartar o enviar la campaña. Recordá guardar antes de salir si tenés cambios pendientes.</p>
+      <div class="doc-image">
+        <a href="assets/email-marketing-editor.png" target="_blank" rel="noopener">
+          <img src="assets/email-marketing-editor.png" alt="Editor de campaña — contenido y vista previa">
+        </a>
+        <div class="doc-image-caption">Editor — contenido del email y vista previa en tiempo real</div>
+      </div>
+
+      <h2>Uso</h2>
+      <p>En la pestaña <strong>Uso</strong> consultás el consumo mensual de emails enviados. Verás el límite total (ej: 50.000), cuántos enviaste, cuántos restan, cuándo se reinicia el contador y los días restantes del mes.</p>
+      <p>Si necesitás más capacidad, podés contactar a <a href="mailto:info@flashpass.com.ar">info@flashpass.com.ar</a> o con tu ejecutivo de cuenta para planes personalizados.</p>
+      <div class="doc-image">
+        <a href="assets/email-marketing-uso.png" target="_blank" rel="noopener">
+          <img src="assets/email-marketing-uso.png" alt="Email Marketing — Uso mensual">
+        </a>
+        <div class="doc-image-caption">Uso — emails enviados este mes y límite disponible</div>
       </div>
     </section>
 
     <!-- ESTABLECIMIENTOS -->
     <section id="establecimientos">
       <h1>Establecimientos</h1>
-      <p>Configurá tu venue una vez y reutilizalo en todos tus eventos. Desde la dirección hasta el inventario de la barra.</p>
+      <p>Configurá tu venue una vez y reutilizalo en todos tus eventos. Cada establecimiento tiene múltiples funcionalidades: desde la información básica hasta el inventario, las mesas, las cajas y la integración con MercadoPago.</p>
+      <p>Navegá entre las pestañas del establecimiento para acceder a cada sección. Todas las configuraciones se aplican al venue seleccionado.</p>
+    </section>
+
+    <section id="est-informacion">
+      <h2>Información</h2>
+      <p>Datos básicos del establecimiento: nombre, dirección, capacidad y estado (Activo/Inactivo). Configurá la información pública que verán tus clientes.</p>
+      <div class="doc-image">
+        <a href="assets/est-informacion.png" target="_blank" rel="noopener">
+          <img src="assets/est-informacion.png" alt="Información del establecimiento">
+        </a>
+        <div class="doc-image-caption">Información — datos básicos del venue</div>
+      </div>
+    </section>
+
+    <section id="est-eventos">
+      <h2>Eventos</h2>
+      <p>Gestioná los eventos asociados al establecimiento. Solo se muestran los eventos que tienen lugar en este venue. Hacé clic en un evento para acceder a sus tres secciones operativas:</p>
       <ul>
-        <li>Nombre, dirección geolocalizada, capacidad</li>
-        <li>Empleados autorizados para operar el FlashPOS</li>
-        <li>Mapa de mesas, cajas, cartas e inventario</li>
-        <li>Integración con MercadoPago QR</li>
+        <li><strong>Mapa de Mesas:</strong> Vista operativa del evento con clientes y reservas por menú</li>
+        <li><strong>Saldos:</strong> Balance de consumos por cliente y mesa</li>
+        <li><strong>Cajas:</strong> Cajas registradoras activas durante el evento</li>
       </ul>
       <div class="doc-image">
-        <div class="doc-image-placeholder">[Imagen: Configuración de establecimiento]</div>
+        <a href="assets/est-empleados.png" target="_blank" rel="noopener">
+          <img src="assets/est-empleados.png" alt="Eventos del establecimiento">
+        </a>
+        <div class="doc-image-caption">Eventos — listado de eventos del venue</div>
+      </div>
+
+      <h3>Al entrar a un evento</h3>
+      <p>Al hacer clic en un evento (ej: "Fiesta 2"), accedés al menú lateral con las tres opciones. Para <strong>Mapa de Mesas</strong>, primero tenés que seleccionar un menú: cada menú del evento tiene su propio mapa con los clientes y reservas asociados. Podés copiar la URL, ver la carta o ver el mapa de cada menú.</p>
+      <div class="doc-image">
+        <a href="assets/est-eventos-menu.png" target="_blank" rel="noopener">
+          <img src="assets/est-eventos-menu.png" alt="Evento — Mapa de Mesas, Saldos, Cajas">
+        </a>
+        <div class="doc-image-caption">Evento seleccionado — Mapa de Mesas, Saldos y Cajas en el menú lateral</div>
+      </div>
+    </section>
+
+    <section id="est-mapa-mesas-eventos">
+      <h2>Eventos → Mapa de Mesas</h2>
+      <p>Vista operativa del plano de mesas durante el evento. Accedé desde <strong>Eventos</strong> → [evento] → <strong>Mapa de Mesas</strong>.</p>
+      <p>Primero seleccioná un menú del evento — cada menú tiene su propio mapa con los clientes y reservas asociados. Verás mesas ocupadas, disponibles y con deuda en tiempo real. Podés exportar ingresos y usar el zoom para navegar el plano.</p>
+    </section>
+
+    <section id="est-cajas-eventos">
+      <h2>Eventos → Cajas</h2>
+      <p>Gestioná las cajas registradoras activas durante el evento. Accedé desde <strong>Eventos</strong> → [evento] → <strong>Cajas</strong>.</p>
+      <p>Verás el estado de cada caja: Carga Manual, Sin sesión, etc. La tabla muestra efectivo inicial, efectivo actual, electrónico, sector y filtros (Con movimiento, Solo efectivo, Pendiente retiro). Las cajas se configuran a nivel establecimiento (ver <a href="#est-cajas">Cajas</a>) y se operan desde acá durante el evento.</p>
+    </section>
+
+    <section id="est-saldos">
+      <h2>Eventos → Saldos</h2>
+      <p>Los saldos permiten gestionar el dinero cargado por los asistentes durante el evento. Accedé desde <strong>Establecimientos</strong> → <strong>Eventos</strong> → [evento] → <strong>Saldos</strong>.</p>
+
+      <h3>Paso 1 — Seleccionar menú</h3>
+      <p>Primero tenés que elegir un menú del evento. Cada menú tiene sus propios saldos y transacciones. La pantalla muestra los menús disponibles con la cantidad de usuarios y el balance total de cada uno. Hacé clic en <strong>Ver saldos</strong> para acceder al detalle.</p>
+      <div class="doc-image">
+        <a href="assets/est-saldos-seleccion.png" target="_blank" rel="noopener">
+          <img src="assets/est-saldos-seleccion.png" alt="Seleccionar Menú para Saldos">
+        </a>
+        <div class="doc-image-caption">Seleccionar menú — cada menú tiene sus propios saldos y transacciones</div>
+      </div>
+
+      <h3>Paso 2 — Gestionar saldos</h3>
+      <p>Una vez dentro del menú, verás:</p>
+      <ul>
+        <li><strong>Total Saldos:</strong> Monto total cargado por los clientes</li>
+        <li><strong>Total Pendiente:</strong> Monto pendiente de cobro</li>
+        <li><strong>Total Usuarios:</strong> Cantidad de usuarios con saldo en ese menú</li>
+      </ul>
+      <p><strong>Acciones:</strong> Descargar Excel, Importar transacciones o <strong>+ Cargar saldos</strong> para agregar créditos manualmente a los usuarios.</p>
+      <p><strong>Filtros:</strong> Todos, Pagados, No pagados, Con deuda, Con mesa, Sin mesa. Buscá por email, número de mesa o nombre.</p>
+      <p>La tabla muestra por cada usuario: email, mesa asignada, saldo actual, pendiente, límite y estado (Pagado, etc.).</p>
+      <div class="doc-image">
+        <a href="assets/est-saldos-tabla.png" target="_blank" rel="noopener">
+          <img src="assets/est-saldos-tabla.png" alt="Saldos — tabla de usuarios y balances">
+        </a>
+        <div class="doc-image-caption">Saldos — balance por usuario, mesa y estado</div>
+      </div>
+    </section>
+
+    <section id="est-empleados">
+      <h2>Empleados</h2>
+      <p>Gestioná los empleados y colaboradores de tu establecimiento. Cada empleado tiene un código de acceso POS de 6 dígitos para operar en las cajas.</p>
+      <ul>
+        <li><strong>Roles:</strong> Camarero, Cajero, Encargado de Inventario</li>
+        <li><strong>Código de Acceso POS:</strong> Código numérico para ingresar al punto de venta</li>
+        <li>Filtrá por evento y rol, exportá y archivá empleados inactivos</li>
+      </ul>
+      <div class="doc-image">
+        <a href="assets/est-ordenes.png" target="_blank" rel="noopener">
+          <img src="assets/est-ordenes.png" alt="Empleados del establecimiento">
+        </a>
+        <div class="doc-image-caption">Empleados — roles y códigos de acceso POS</div>
+      </div>
+    </section>
+
+    <section id="est-mesas">
+      <h2>Mesas (configuración del establecimiento)</h2>
+      <p>Organizá el layout de mesas del venue con un editor visual. Esta configuración es a nivel establecimiento — definís el plano del piso que luego se usa en los eventos. Creá el mapa arrastrando formas (círculos, cuadrados, triángulos), agregá barreras, etiquetas y categorías (GENERAL, VIP, etc.).</p>
+      <ul>
+        <li>Formas: círculo, cuadrado, triángulo</li>
+        <li>Tarifas por categoría de mesa</li>
+        <li>Mesas archivadas recuperables</li>
+      </ul>
+      <div class="doc-image">
+        <a href="assets/est-mesas.png" target="_blank" rel="noopener">
+          <img src="assets/est-mesas.png" alt="Gestión de Mesas">
+        </a>
+        <div class="doc-image-caption">Mesas — editor visual del mapa del piso</div>
+      </div>
+      <div class="doc-note">
+        Durante el evento, el <strong>Mapa de Mesas</strong> operativo se accede desde <strong>Eventos</strong> → [evento] → <strong>Mapa de Mesas</strong>. Seleccioná un menú para ver el plano con clientes y reservas de ese menú en tiempo real.
+      </div>
+    </section>
+
+    <section id="est-cajas">
+      <h2>Cajas (configuración del establecimiento)</h2>
+      <p>Configurá las cajas registradoras disponibles en el establecimiento. Hay dos tipos:</p>
+      <ul>
+        <li><strong>Caja de Boletería:</strong> Permite vender entradas y combos</li>
+        <li><strong>Caja de Barra:</strong> Solo permite vender productos del menú</li>
+      </ul>
+      <p>Cada caja tiene nombre, número POS, tipo y sector asignado.</p>
+      <div class="doc-image">
+        <a href="assets/est-inventario-componentes.png" target="_blank" rel="noopener">
+          <img src="assets/est-inventario-componentes.png" alt="Cajas del establecimiento">
+        </a>
+        <div class="doc-image-caption">Cajas — boletería vs barra</div>
+      </div>
+      <div class="doc-note">
+        Durante el evento, las cajas operativas se gestionan desde <strong>Eventos</strong> → [evento] → <strong>Cajas</strong>. Ahí ves el estado de cada caja (Carga Manual, Sin sesión), efectivo, electrónico y movimientos.
+      </div>
+    </section>
+
+    <section id="est-estaciones">
+      <h2>Estaciones de Preparación</h2>
+      <p>Configurá las estaciones donde se preparan los productos (ej: Bar Principal). Cada estación tiene un código, bartenders asignados y categorías de productos.</p>
+      <div class="doc-image">
+        <a href="assets/est-inventario-control.png" target="_blank" rel="noopener">
+          <img src="assets/est-inventario-control.png" alt="Estaciones de Preparación">
+        </a>
+        <div class="doc-image-caption">Estaciones — donde se preparan los productos</div>
+      </div>
+    </section>
+
+    <section id="est-componentes">
+      <h2>Componentes</h2>
+      <p>Gestioná los componentes (insumos) del establecimiento: nombre, descripción, cantidad/unidad, precio unitario e ID externo. Importá o exportá por Excel.</p>
+      <div class="doc-image">
+        <a href="assets/est-inventario-transferencias.png" target="_blank" rel="noopener">
+          <img src="assets/est-inventario-transferencias.png" alt="Componentes del establecimiento">
+        </a>
+        <div class="doc-image-caption">Componentes — insumos con precios y unidades</div>
+      </div>
+    </section>
+
+    <section id="est-cartas">
+      <h2>Cartas y Menús</h2>
+      <p>Gestioná los menús, productos y métodos de pago del establecimiento. Creá cartas, asigná productos y compartí el link o QR con los clientes.</p>
+      <ul>
+        <li><strong>Gestionar:</strong> Editar productos y categorías</li>
+        <li><strong>Ver como cliente:</strong> Vista previa del menú</li>
+        <li><strong>Copiar URL / Descargar:</strong> Compartir o imprimir</li>
+      </ul>
+      <div class="doc-image">
+        <a href="assets/est-inventario-agregar-stock.png" target="_blank" rel="noopener">
+          <img src="assets/est-inventario-agregar-stock.png" alt="Cartas y Menús">
+        </a>
+        <div class="doc-image-caption">Cartas — menús y productos</div>
+      </div>
+    </section>
+
+    <section id="est-ordenes">
+      <h2>Órdenes</h2>
+      <p>Gestioná las órdenes de tu establecimiento. Filtrá por evento, carta, mesa, caja o estado. Cada orden muestra ID, fecha, cliente, evento, carta, mesa, total y estado (En Proceso, Completada, etc.).</p>
+      <div class="doc-image">
+        <a href="assets/est-almacenes.png" target="_blank" rel="noopener">
+          <img src="assets/est-almacenes.png" alt="Órdenes del establecimiento">
+        </a>
+        <div class="doc-image-caption">Órdenes — historial y filtros</div>
+      </div>
+    </section>
+
+    <section id="est-monedas">
+      <h2>Monedas</h2>
+      <p>Gestioná las monedas y tipos de cambio para el establecimiento. La moneda base es siempre ARS (Peso Argentino). Todas las demás monedas se configuran con su tipo de cambio respecto al peso.</p>
+
+      <h3>Lista de monedas</h3>
+      <p>En la sección Monedas verás la tabla de monedas configuradas. Cada fila muestra: moneda, código, tipo de cambio y estado (Moneda Base, Activa). El menú de acciones (⋯) permite editar o gestionar cada moneda.</p>
+      <div class="doc-image">
+        <a href="assets/est-monedas.png" target="_blank" rel="noopener">
+          <img src="assets/est-monedas.png" alt="Monedas configuradas">
+        </a>
+        <div class="doc-image-caption">Monedas — lista con ARS como base</div>
+      </div>
+
+      <h3>Agregar una moneda</h3>
+      <p>Hacé clic en <strong>+ Agregar Moneda</strong>. En el modal:</p>
+      <ul>
+        <li><strong>Moneda:</strong> Seleccioná la moneda del listado (ej: USD - Dólar Estadounidense)</li>
+        <li><strong>Tipo de Cambio (1 USD = ? ARS):</strong> Ingresá cuántos pesos argentinos equivale a 1 unidad de la moneda seleccionada. Por ejemplo, si 1 USD = 1420 ARS, ingresá 1420.</li>
+      </ul>
+      <p>Hacé clic en <strong>Agregar Moneda</strong> para guardar. La nueva moneda aparecerá en la lista con estado "Activa" y su tipo de cambio.</p>
+      <div class="doc-image">
+        <a href="assets/est-monedas-agregar.png" target="_blank" rel="noopener">
+          <img src="assets/est-monedas-agregar.png" alt="Modal Agregar Moneda">
+        </a>
+        <div class="doc-image-caption">Agregar Moneda — seleccionar moneda y tipo de cambio respecto a ARS</div>
+      </div>
+
+      <div class="doc-image">
+        <a href="assets/est-monedas-lista.png" target="_blank" rel="noopener">
+          <img src="assets/est-monedas-lista.png" alt="Monedas con USD agregada">
+        </a>
+        <div class="doc-image-caption">Monedas configuradas — ARS (base) y USD (activa)</div>
+      </div>
+    </section>
+
+    <section id="est-inventario">
+      <h2>Inventario</h2>
+      <p>Gestioná el stock y umbrales de tus componentes. El inventario tiene cuatro subsecciones:</p>
+      <ul>
+        <li><strong>Componentes:</strong> Stock actual por almacén, umbrales y nivel (Crítico, Stock Bajo, OK)</li>
+        <li><strong>Control:</strong> Sesiones de conteo de inventario. Creá nuevas sesiones y revisá el historial</li>
+        <li><strong>Transferencias:</strong> Movimientos de stock entre almacenes</li>
+        <li><strong>Agregar Stock:</strong> Por facturas/remitos (con impuestos argentinos) o carga masiva Excel</li>
+      </ul>
+      <div class="doc-image">
+        <a href="assets/est-mercadopago.png" target="_blank" rel="noopener">
+          <img src="assets/est-mercadopago.png" alt="Inventario de componentes">
+        </a>
+        <div class="doc-image-caption">Inventario — stock, umbrales y nivel</div>
+      </div>
+      <div class="doc-image">
+        <a href="assets/est-saldos.png" target="_blank" rel="noopener">
+          <img src="assets/est-saldos.png" alt="Control de inventario">
+        </a>
+        <div class="doc-image-caption">Control — sesiones de conteo</div>
+      </div>
+      <div class="doc-image">
+        <div class="doc-image-placeholder">[Imagen: Transferencias entre almacenes]</div>
+      </div>
+      <div class="doc-image">
+        <a href="assets/est-inventario-agregar-stock.png" target="_blank" rel="noopener">
+          <img src="assets/est-inventario-agregar-stock.png" alt="Agregar Stock al Inventario">
+        </a>
+        <div class="doc-image-caption">Agregar Stock — facturas/remitos o carga masiva Excel</div>
+      </div>
+    </section>
+
+    <section id="est-almacenes">
+      <h2>Almacenes</h2>
+      <p>Gestioná los almacenes del establecimiento para organizar el inventario. Creá almacenes (ej: Barra principal, Depósito de bebidas), marcá uno como principal y organizá el stock por ubicación.</p>
+      <p>Al crear un almacén: nombre, descripción opcional (máx. 500 caracteres) y opción "Almacén principal".</p>
+      <div class="doc-image">
+        <div class="doc-image-placeholder">[Imagen: Lista de almacenes]</div>
+      </div>
+    </section>
+
+    <section id="est-mercadopago">
+      <h2>MercadoPago</h2>
+      <p>Configurá tu cuenta de MercadoPago para procesar pagos en el establecimiento. Una vez conectada, podés crear la Tienda de MercadoPago y los Puntos de Venta (QR) para cobros.</p>
+      <ul>
+        <li><strong>Cuenta Conectada:</strong> ID de usuario, estado (En producción)</li>
+        <li><strong>Tienda:</strong> Crear tienda o con ubicación manual</li>
+        <li><strong>Puntos de Venta (QR):</strong> Para pagos con QR</li>
+      </ul>
+      <div class="doc-image">
+        <div class="doc-image-placeholder">[Imagen: Configuración MercadoPago]</div>
       </div>
     </section>
 
@@ -835,6 +1399,50 @@
         <li>Acreditación en 1-3 días hábiles</li>
         <li>CBU para pagos semanales automáticos</li>
       </ul>
+    </section>
+
+    <!-- DEVOLUCIONES -->
+    <section id="devoluciones">
+      <h1>Gestionar devoluciones</h1>
+      <p>Gestioná las solicitudes de reembolso de tus clientes desde un solo lugar. Consultá el estado, el motivo y el marco legal de cada solicitud.</p>
+
+      <h2>Lista de devoluciones</h2>
+      <p>En la sección <strong>Devoluciones</strong> verás todas las solicitudes de reembolso. Podés buscar por ID de compra o nombre del cliente, y filtrar por estado del reembolso (Todos, Pendiente, Reembolsado, etc.).</p>
+      <p>La tabla muestra:</p>
+      <ul>
+        <li><strong>ID de Compra:</strong> Identificador único de la transacción</li>
+        <li><strong>Nombre:</strong> Cliente que solicitó el reembolso</li>
+        <li><strong>Evento:</strong> Evento al que corresponde la compra</li>
+        <li><strong>Fecha del Evento:</strong> Fecha del evento (con indicador si ya pasó)</li>
+        <li><strong>Valor total:</strong> Monto de la transacción</li>
+        <li><strong>Ley del Consumidor:</strong> Días desde la compra y marco legal (Ley 24.240)</li>
+        <li><strong>Motivo:</strong> Botón para ver el motivo detallado</li>
+        <li><strong>Acciones:</strong> Estado actual (Reembolsado, Pendiente, etc.)</li>
+      </ul>
+      <div class="doc-image">
+        <a href="assets/devoluciones-lista.png" target="_blank" rel="noopener">
+          <img src="assets/devoluciones-lista.png" alt="Gestionar devoluciones — lista de solicitudes">
+        </a>
+        <div class="doc-image-caption">Lista de devoluciones — buscá, filtrá y gestioná el estado</div>
+      </div>
+
+      <h2>Ver motivo de devolución</h2>
+      <p>Al hacer clic en <strong>VER MOTIVO</strong> se abre un modal con los detalles completos de la solicitud:</p>
+      <ul>
+        <li><strong>ID de Compra y Evento:</strong> Datos de la transacción</li>
+        <li><strong>Días desde la compra:</strong> Determina si aplica la Ley de Defensa del Consumidor (Art. 34)</li>
+        <li><strong>Ley 24.240:</strong> El consumidor tiene derecho a revocar la aceptación dentro de los 10 días consecutivos desde la compra. Este derecho no puede ser renunciado.</li>
+        <li><strong>Motivo detallado del cliente:</strong> La razón que indicó el cliente (ej: "No puedo asistir"). Durante los primeros 10 días no se requiere expresión de causa por ley.</li>
+      </ul>
+      <div class="doc-note">
+        Si la compra fue hace menos de 10 días, el reembolso es <strong>obligatorio por ley</strong>. No podés rechazar la solicitud en ese período.
+      </div>
+      <div class="doc-image">
+        <a href="assets/devoluciones-motivo.png" target="_blank" rel="noopener">
+          <img src="assets/devoluciones-motivo.png" alt="Modal Motivo de devolución — detalles y marco legal">
+        </a>
+        <div class="doc-image-caption">Motivo de devolución — marco legal y detalles del cliente</div>
+      </div>
     </section>
 
     <!-- FAQ -->
